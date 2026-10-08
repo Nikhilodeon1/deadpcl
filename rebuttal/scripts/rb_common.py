@@ -35,12 +35,19 @@ def hash_id(site, patient_id, stay_id):
     return hashlib.sha256(key).hexdigest()[:16]
 
 
-def load_site_cached(loader_name, fraction, seed):
-    """Cached site load (the full read takes minutes). The cache is keyed by
-    seed, as in the original driver."""
-    from config import CACHE_DIR, PHYSIONET_DIR, MIMIC_DIR, EICU_DIR
+def cache_path(loader_name, fraction, seed):
+    """At fraction 1.0 the loaders ignore the seed (it only seeds subsampling),
+    so the full-data cache is shared by every seed."""
+    from config import CACHE_DIR
     os.makedirs(CACHE_DIR, exist_ok=True)
-    path = os.path.join(CACHE_DIR, f"{loader_name}_frac{fraction}_seed{seed}.pkl")
+    key = "all" if fraction >= 1.0 else f"frac{fraction}_seed{seed}"
+    return os.path.join(CACHE_DIR, f"{loader_name}_{key}.pkl")
+
+
+def load_site_cached(loader_name, fraction, seed):
+    """Cached site load (the full read takes minutes)."""
+    from config import PHYSIONET_DIR, MIMIC_DIR, EICU_DIR
+    path = cache_path(loader_name, fraction, seed)
     if os.path.exists(path):
         logging.info(f"[cache] loading {loader_name} from cache")
         with open(path, "rb") as fp:

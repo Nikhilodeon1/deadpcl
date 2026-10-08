@@ -25,6 +25,9 @@ def main():
     ap.add_argument("--pretrain-epochs", type=int, default=None)
     ap.add_argument("--finetune-epochs", type=int, default=None)
     ap.add_argument("--tag", default="timed")
+    ap.add_argument("--skip-external", action="store_true",
+                    help="train/score on PhysioNet only (pod has no MIMIC-IV / eICU); the saved "
+                         "checkpoint is scored on those sites locally with score_checkpoint.py")
     ap.add_argument("--price-per-hour", type=float, default=None, help="pod price in USD/h, for the cost projection")
     args = ap.parse_args()
 
@@ -52,8 +55,8 @@ def main():
 
     t = time.time()
     src = rb.load_site_cached("physionet_a", args.fraction, args.seed)
-    targets = {k: rb.load_site_cached(n, args.fraction, args.seed)
-               for k, n in (("site_b", "physionet_b"), ("mimic", "mimic"), ("eicu", "eicu"))}
+    target_names = (("site_b", "physionet_b"),) if args.skip_external else         (("site_b", "physionet_b"), ("mimic", "mimic"), ("eicu", "eicu"))
+    targets = {k: rb.load_site_cached(n, args.fraction, args.seed) for k, n in target_names}
     stages["data_load_s"] = time.time() - t   # includes first-time CSV/PSV parsing if the cache was cold
 
     ckpt_dir = os.path.join(CHECKPOINT_DIR, "timing")
@@ -90,12 +93,16 @@ def main():
         metrics[k] = rb.predict_and_dump(model, loader, rb.TASK, device, k,
                                          os.path.join(dump_dir, f"{k}.npz"))
     stages["eval_s"] = time.time() - t
+    keep = os.path.join(rb.RB_OUT, "checkpoints", f"{args.tag}_ft.pt")   # small (~13 MB); score locally
+    os.makedirs(os.path.dirname(keep), exist_ok=True)
+    import shutil
+    shutil.copy(ft_ckpt, keep)
     stages["total_s"] = time.time() - t_all
     compute_s = stages["pretrain_s"] + stages["finetune_s"] + stages["eval_s"]
 
     result = {
         "tag": args.tag, "seed": args.seed, "lambda": lam, "fraction": args.fraction,
-        "pretrain_epochs": pt_ep, "finetune_epochs": ft_ep, "device": device, "gpu": gpu,
+        "skip_external": args.skip_external, "pretrain_epochs": pt_ep, "finetune_epochs": ft_ep, "device": device, "gpu": gpu,
         "torch": torch.__version__, "stages_s": stages,
         "n_per_site": {"site_a": len(src), **{k: len(v) for k, v in targets.items()}},
         "peak_gpu_mem_gb": (torch.cuda.max_memory_allocated() / 1e9) if device == "cuda" else None,
