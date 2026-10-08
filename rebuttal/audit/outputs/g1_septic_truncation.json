@@ -1,0 +1,44 @@
+{
+  "training_setA": {
+    "n_files": 20336,
+    "n_septic": 1790,
+    "rows_from_first_label_to_end": {
+      "min": 6,
+      "median": 10.0,
+      "p95": 10.0,
+      "max": 10
+    },
+    "first_label_row": {
+      "min": 0,
+      "median": 28.0,
+      "max": 330
+    },
+    "record_length": {
+      "min": 8,
+      "median": 38.0,
+      "max": 336
+    },
+    "frac_label_stays_1_to_end": 1.0
+  },
+  "training_setB": {
+    "n_files": 20000,
+    "n_septic": 1142,
+    "rows_from_first_label_to_end": {
+      "min": 1,
+      "median": 10.0,
+      "p95": 10.0,
+      "max": 10
+    },
+    "first_label_row": {
+      "min": 0,
+      "median": 27.5,
+      "max": 330
+    },
+    "record_length": {
+      "min": 8,
+      "median": 37.0,
+      "max": 336
+    },
+    "frac_label_stays_1_to_end": 1.0
+  }
+}

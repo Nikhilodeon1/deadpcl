@@ -1,0 +1,11 @@
+# Aggregates only. Nothing patient-level is ever committed.
+**/cache/
+**/ckpt*/
+*.pt
+*.pkl
+*.npz
+*.psv
+data/
+__pycache__/
+work/
+outputs/pod_inventory*.txt
