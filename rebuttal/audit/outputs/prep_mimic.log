@@ -1,2 +1,159 @@
 2026-10-08 03:09:28,170 INFO: MIMIC-IV: loading 74829 stays
 2026-10-08 03:09:50,605 INFO:   [A1 read prescriptions.csv.gz] 5 ... 22s elapsed
+2026-10-08 03:10:11,377 INFO:   [A1 read prescriptions.csv.gz] 9 ... 43s elapsed
+2026-10-08 03:10:32,287 INFO:   [A1 read prescriptions.csv.gz] 13 ... 64s elapsed
+2026-10-08 03:10:52,692 INFO:   [A1 read prescriptions.csv.gz] 17 ... 84s elapsed
+2026-10-08 03:14:14,788 INFO:   [A1 read labevents.csv.gz] 8 ... 20s elapsed
+2026-10-08 03:14:34,838 INFO:   [A1 read labevents.csv.gz] 16 ... 41s elapsed
+2026-10-08 03:14:55,026 INFO:   [A1 read labevents.csv.gz] 24 ... 61s elapsed
+2026-10-08 03:15:16,214 INFO:   [A1 read labevents.csv.gz] 32 ... 82s elapsed
+2026-10-08 03:15:36,790 INFO:   [A1 read labevents.csv.gz] 40 ... 102s elapsed
+2026-10-08 03:15:58,094 INFO:   [A1 read labevents.csv.gz] 50 ... 124s elapsed
+2026-10-08 03:16:19,033 INFO:   [A1 read labevents.csv.gz] 59 ... 145s elapsed
+2026-10-08 03:16:39,184 INFO:   [A1 read labevents.csv.gz] 66 ... 165s elapsed
+2026-10-08 03:16:59,397 INFO:   [A1 read labevents.csv.gz] 75 ... 185s elapsed
+2026-10-08 03:17:20,181 INFO:   [A1 read labevents.csv.gz] 85 ... 206s elapsed
+2026-10-08 03:17:40,756 INFO:   [A1 read labevents.csv.gz] 95 ... 226s elapsed
+2026-10-08 03:18:01,599 INFO:   [A1 read labevents.csv.gz] 104 ... 247s elapsed
+2026-10-08 03:18:23,655 INFO:   [A1 read labevents.csv.gz] 114 ... 269s elapsed
+2026-10-08 03:18:44,008 INFO:   [A1 read labevents.csv.gz] 123 ... 290s elapsed
+2026-10-08 03:19:04,382 INFO:   [A1 read labevents.csv.gz] 132 ... 310s elapsed
+2026-10-08 03:19:24,826 INFO:   [A1 read labevents.csv.gz] 141 ... 331s elapsed
+2026-10-08 03:19:46,892 INFO:   [A1 read labevents.csv.gz] 151 ... 353s elapsed
+2026-10-08 03:23:17,753 INFO:   [A1 read chartevents.csv.gz] 11 ... 21s elapsed
+2026-10-08 03:23:37,957 INFO:   [A1 read chartevents.csv.gz] 22 ... 41s elapsed
+2026-10-08 03:23:59,087 INFO:   [A1 read chartevents.csv.gz] 34 ... 63s elapsed
+2026-10-08 03:24:20,176 INFO:   [A1 read chartevents.csv.gz] 46 ... 84s elapsed
+2026-10-08 03:24:40,239 INFO:   [A1 read chartevents.csv.gz] 57 ... 104s elapsed
+2026-10-08 03:25:01,222 INFO:   [A1 read chartevents.csv.gz] 68 ... 125s elapsed
+2026-10-08 03:25:22,168 INFO:   [A1 read chartevents.csv.gz] 80 ... 146s elapsed
+2026-10-08 03:25:43,721 INFO:   [A1 read chartevents.csv.gz] 92 ... 167s elapsed
+2026-10-08 03:26:03,942 INFO:   [A1 read chartevents.csv.gz] 103 ... 187s elapsed
+2026-10-08 03:26:23,960 INFO:   [A1 read chartevents.csv.gz] 114 ... 207s elapsed
+2026-10-08 03:26:45,393 INFO:   [A1 read chartevents.csv.gz] 126 ... 229s elapsed
+2026-10-08 03:27:07,225 INFO:   [A1 read chartevents.csv.gz] 137 ... 251s elapsed
+2026-10-08 03:27:29,112 INFO:   [A1 read chartevents.csv.gz] 148 ... 273s elapsed
+2026-10-08 03:27:50,105 INFO:   [A1 read chartevents.csv.gz] 159 ... 294s elapsed
+2026-10-08 03:28:10,867 INFO:   [A1 read chartevents.csv.gz] 170 ... 314s elapsed
+2026-10-08 03:28:31,793 INFO:   [A1 read chartevents.csv.gz] 181 ... 335s elapsed
+2026-10-08 03:28:52,113 INFO:   [A1 read chartevents.csv.gz] 192 ... 356s elapsed
+2026-10-08 03:29:12,147 INFO:   [A1 read chartevents.csv.gz] 203 ... 376s elapsed
+2026-10-08 03:29:33,843 INFO:   [A1 read chartevents.csv.gz] 215 ... 397s elapsed
+2026-10-08 03:29:55,558 INFO:   [A1 read chartevents.csv.gz] 226 ... 419s elapsed
+2026-10-08 03:30:16,689 INFO:   [A1 read chartevents.csv.gz] 236 ... 440s elapsed
+2026-10-08 03:30:38,660 INFO:   [A1 read chartevents.csv.gz] 247 ... 462s elapsed
+2026-10-08 03:30:59,159 INFO:   [A1 read chartevents.csv.gz] 257 ... 483s elapsed
+2026-10-08 03:31:19,426 INFO:   [A1 read chartevents.csv.gz] 267 ... 503s elapsed
+2026-10-08 03:31:40,782 INFO:   [A1 read chartevents.csv.gz] 278 ... 524s elapsed
+2026-10-08 03:32:01,999 INFO:   [A1 read chartevents.csv.gz] 289 ... 545s elapsed
+2026-10-08 03:32:23,661 INFO:   [A1 read chartevents.csv.gz] 301 ... 567s elapsed
+2026-10-08 03:32:45,971 INFO:   [A1 read chartevents.csv.gz] 312 ... 589s elapsed
+2026-10-08 03:33:07,796 INFO:   [A1 read chartevents.csv.gz] 323 ... 611s elapsed
+2026-10-08 03:33:29,202 INFO:   [A1 read chartevents.csv.gz] 334 ... 633s elapsed
+2026-10-08 03:33:50,436 INFO:   [A1 read chartevents.csv.gz] 345 ... 654s elapsed
+2026-10-08 03:34:10,952 INFO:   [A1 read chartevents.csv.gz] 355 ... 674s elapsed
+2026-10-08 03:34:32,263 INFO:   [A1 read chartevents.csv.gz] 366 ... 696s elapsed
+2026-10-08 03:34:54,026 INFO:   [A1 read chartevents.csv.gz] 377 ... 717s elapsed
+2026-10-08 03:35:15,518 INFO:   [A1 read chartevents.csv.gz] 388 ... 739s elapsed
+2026-10-08 03:35:35,522 INFO:   [A1 read chartevents.csv.gz] 398 ... 759s elapsed
+2026-10-08 03:35:56,789 INFO:   [A1 read chartevents.csv.gz] 409 ... 780s elapsed
+2026-10-08 03:36:18,260 INFO:   [A1 read chartevents.csv.gz] 421 ... 802s elapsed
+2026-10-08 03:36:39,835 INFO:   [A1 read chartevents.csv.gz] 432 ... 823s elapsed
+2026-10-08 09:30:21,902 INFO:   [A1 read inputevents.csv.gz] 4 ... 20s elapsed
+2026-10-08 09:30:46,738 INFO:   [A1 read inputevents.csv.gz] 9 ... 45s elapsed
+2026-10-08 09:36:17,977 INFO: [A1/SOFA MIMIC mode=single] 23136/74829 sepsis+ (30.9%); window=51.0% single-point=30.9%; infection in 44808 stays
+2026-10-08 09:36:19,016 INFO: MIMIC-IV: reading chartevents (chunked)...
+2026-10-08 09:36:39,060 INFO:   [read chartevents.csv.gz] 17 ... 20s elapsed | 8,500,000 rows scanned, 1,032,863 kept
+2026-10-08 09:36:59,695 INFO:   [read chartevents.csv.gz] 35 ... 41s elapsed | 17,500,000 rows scanned, 2,128,376 kept
+2026-10-08 09:37:20,215 INFO:   [read chartevents.csv.gz] 48 ... 61s elapsed | 24,000,000 rows scanned, 2,915,233 kept
+2026-10-08 09:37:41,332 INFO:   [read chartevents.csv.gz] 64 ... 82s elapsed | 32,000,000 rows scanned, 3,890,776 kept
+2026-10-08 09:38:01,476 INFO:   [read chartevents.csv.gz] 80 ... 102s elapsed | 40,000,000 rows scanned, 4,841,653 kept
+2026-10-08 09:38:22,067 INFO:   [read chartevents.csv.gz] 98 ... 123s elapsed | 49,000,000 rows scanned, 5,937,309 kept
+2026-10-08 09:38:42,540 INFO:   [read chartevents.csv.gz] 116 ... 144s elapsed | 58,000,000 rows scanned, 7,040,842 kept
+2026-10-08 09:39:03,146 INFO:   [read chartevents.csv.gz] 134 ... 164s elapsed | 67,000,000 rows scanned, 8,134,489 kept
+2026-10-08 09:39:23,765 INFO:   [read chartevents.csv.gz] 152 ... 185s elapsed | 76,000,000 rows scanned, 9,216,567 kept
+2026-10-08 09:39:44,514 INFO:   [read chartevents.csv.gz] 170 ... 205s elapsed | 85,000,000 rows scanned, 10,294,632 kept
+2026-10-08 09:40:05,044 INFO:   [read chartevents.csv.gz] 188 ... 226s elapsed | 94,000,000 rows scanned, 11,380,258 kept
+2026-10-08 09:40:25,381 INFO:   [read chartevents.csv.gz] 206 ... 246s elapsed | 103,000,000 rows scanned, 12,465,150 kept
+2026-10-08 09:40:46,077 INFO:   [read chartevents.csv.gz] 224 ... 267s elapsed | 112,000,000 rows scanned, 13,556,268 kept
+2026-10-08 09:41:07,169 INFO:   [read chartevents.csv.gz] 242 ... 288s elapsed | 121,000,000 rows scanned, 14,646,022 kept
+2026-10-08 09:41:27,810 INFO:   [read chartevents.csv.gz] 260 ... 309s elapsed | 130,000,000 rows scanned, 15,726,617 kept
+2026-10-08 09:41:48,991 INFO:   [read chartevents.csv.gz] 278 ... 330s elapsed | 139,000,000 rows scanned, 16,804,790 kept
+2026-10-08 09:42:09,212 INFO:   [read chartevents.csv.gz] 295 ... 350s elapsed | 147,500,000 rows scanned, 17,861,881 kept
+2026-10-08 09:42:30,336 INFO:   [read chartevents.csv.gz] 313 ... 371s elapsed | 156,500,000 rows scanned, 18,949,232 kept
+2026-10-08 09:42:51,283 INFO:   [read chartevents.csv.gz] 331 ... 392s elapsed | 165,500,000 rows scanned, 20,045,628 kept
+2026-10-08 09:43:12,073 INFO:   [read chartevents.csv.gz] 349 ... 413s elapsed | 174,500,000 rows scanned, 21,137,508 kept
+2026-10-08 09:43:32,957 INFO:   [read chartevents.csv.gz] 367 ... 434s elapsed | 183,500,000 rows scanned, 22,233,256 kept
+2026-10-08 09:43:53,297 INFO:   [read chartevents.csv.gz] 385 ... 454s elapsed | 192,500,000 rows scanned, 23,328,072 kept
+2026-10-08 09:44:13,669 INFO:   [read chartevents.csv.gz] 402 ... 475s elapsed | 201,000,000 rows scanned, 24,364,322 kept
+2026-10-08 09:44:35,121 INFO:   [read chartevents.csv.gz] 419 ... 496s elapsed | 209,500,000 rows scanned, 25,393,806 kept
+2026-10-08 09:44:55,359 INFO:   [read chartevents.csv.gz] 436 ... 516s elapsed | 218,000,000 rows scanned, 26,404,636 kept
+2026-10-08 09:45:15,582 INFO:   [read chartevents.csv.gz] 455 ... 537s elapsed | 227,500,000 rows scanned, 27,550,481 kept
+2026-10-08 09:45:36,473 INFO:   [read chartevents.csv.gz] 473 ... 557s elapsed | 236,500,000 rows scanned, 28,654,152 kept
+2026-10-08 09:45:56,550 INFO:   [read chartevents.csv.gz] 489 ... 578s elapsed | 244,500,000 rows scanned, 29,629,419 kept
+2026-10-08 09:46:17,079 INFO:   [read chartevents.csv.gz] 506 ... 598s elapsed | 253,000,000 rows scanned, 30,648,732 kept
+2026-10-08 09:46:37,446 INFO:   [read chartevents.csv.gz] 522 ... 618s elapsed | 261,000,000 rows scanned, 31,621,694 kept
+2026-10-08 09:46:58,581 INFO:   [read chartevents.csv.gz] 539 ... 640s elapsed | 269,500,000 rows scanned, 32,621,382 kept
+2026-10-08 09:47:19,523 INFO:   [read chartevents.csv.gz] 556 ... 661s elapsed | 278,000,000 rows scanned, 33,650,982 kept
+2026-10-08 09:47:39,625 INFO:   [read chartevents.csv.gz] 572 ... 681s elapsed | 286,000,000 rows scanned, 34,607,600 kept
+2026-10-08 09:48:00,651 INFO:   [read chartevents.csv.gz] 587 ... 702s elapsed | 293,500,000 rows scanned, 35,497,592 kept
+2026-10-08 09:48:20,657 INFO:   [read chartevents.csv.gz] 601 ... 722s elapsed | 300,500,000 rows scanned, 36,343,268 kept
+2026-10-08 09:48:41,019 INFO:   [read chartevents.csv.gz] 616 ... 742s elapsed | 308,000,000 rows scanned, 37,247,128 kept
+2026-10-08 09:49:02,270 INFO:   [read chartevents.csv.gz] 633 ... 763s elapsed | 316,500,000 rows scanned, 38,262,013 kept
+2026-10-08 09:49:23,500 INFO:   [read chartevents.csv.gz] 649 ... 784s elapsed | 324,500,000 rows scanned, 39,250,198 kept
+2026-10-08 09:49:43,627 INFO:   [read chartevents.csv.gz] 665 ... 805s elapsed | 332,500,000 rows scanned, 40,212,350 kept
+2026-10-08 09:50:04,004 INFO:   [read chartevents.csv.gz] 681 ... 825s elapsed | 340,500,000 rows scanned, 41,168,216 kept
+2026-10-08 09:50:24,186 INFO:   [read chartevents.csv.gz] 697 ... 845s elapsed | 348,500,000 rows scanned, 42,144,092 kept
+2026-10-08 09:50:44,695 INFO:   [read chartevents.csv.gz] 714 ... 866s elapsed | 357,000,000 rows scanned, 43,183,721 kept
+2026-10-08 09:51:05,128 INFO:   [read chartevents.csv.gz] 730 ... 886s elapsed | 365,000,000 rows scanned, 44,150,564 kept
+2026-10-08 09:51:25,905 INFO:   [read chartevents.csv.gz] 747 ... 907s elapsed | 373,500,000 rows scanned, 45,198,276 kept
+2026-10-08 09:51:46,863 INFO:   [read chartevents.csv.gz] 764 ... 928s elapsed | 382,000,000 rows scanned, 46,201,767 kept
+2026-10-08 09:52:08,058 INFO:   [read chartevents.csv.gz] 781 ... 949s elapsed | 390,500,000 rows scanned, 47,230,441 kept
+2026-10-08 09:52:29,123 INFO:   [read chartevents.csv.gz] 796 ... 970s elapsed | 398,000,000 rows scanned, 48,155,132 kept
+2026-10-08 09:52:50,301 INFO:   [read chartevents.csv.gz] 812 ... 991s elapsed | 406,000,000 rows scanned, 49,098,948 kept
+2026-10-08 09:53:11,150 INFO:   [read chartevents.csv.gz] 828 ... 1012s elapsed | 414,000,000 rows scanned, 50,083,639 kept
+2026-10-08 09:53:32,182 INFO:   [read chartevents.csv.gz] 844 ... 1033s elapsed | 422,000,000 rows scanned, 51,041,440 kept
+2026-10-08 09:53:53,256 INFO:   [read chartevents.csv.gz] 860 ... 1054s elapsed | 430,000,000 rows scanned, 52,026,887 kept
+2026-10-08 09:54:01,570 INFO:   [read chartevents.csv.gz] 866 ... 1063s elapsed | 432,997,491 rows scanned, 52,390,568 kept (done)
+2026-10-08 09:54:09,061 INFO: MIMIC-IV: reading labevents (chunked)...
+2026-10-08 09:54:29,174 INFO:   [read labevents.csv.gz] 13 ... 20s elapsed | 6,500,000 rows scanned, 341,559 kept
+2026-10-08 09:54:50,607 INFO:   [read labevents.csv.gz] 26 ... 42s elapsed | 13,000,000 rows scanned, 681,150 kept
+2026-10-08 09:55:10,990 INFO:   [read labevents.csv.gz] 39 ... 62s elapsed | 19,500,000 rows scanned, 1,009,220 kept
+2026-10-08 09:55:31,339 INFO:   [read labevents.csv.gz] 53 ... 82s elapsed | 26,500,000 rows scanned, 1,378,361 kept
+2026-10-08 09:55:51,944 INFO:   [read labevents.csv.gz] 67 ... 103s elapsed | 33,500,000 rows scanned, 1,732,817 kept
+2026-10-08 09:56:12,785 INFO:   [read labevents.csv.gz] 81 ... 124s elapsed | 40,500,000 rows scanned, 2,067,227 kept
+2026-10-08 09:56:32,799 INFO:   [read labevents.csv.gz] 94 ... 144s elapsed | 47,000,000 rows scanned, 2,396,142 kept
+2026-10-08 09:56:53,119 INFO:   [read labevents.csv.gz] 108 ... 164s elapsed | 54,000,000 rows scanned, 2,746,888 kept
+2026-10-08 09:57:13,692 INFO:   [read labevents.csv.gz] 122 ... 185s elapsed | 61,000,000 rows scanned, 3,108,861 kept
+2026-10-08 09:57:34,282 INFO:   [read labevents.csv.gz] 137 ... 205s elapsed | 68,500,000 rows scanned, 3,492,831 kept
+2026-10-08 09:57:55,032 INFO:   [read labevents.csv.gz] 152 ... 226s elapsed | 76,000,000 rows scanned, 3,873,042 kept
+2026-10-08 09:58:15,261 INFO:   [read labevents.csv.gz] 166 ... 246s elapsed | 83,000,000 rows scanned, 4,217,756 kept
+2026-10-08 09:58:36,416 INFO:   [read labevents.csv.gz] 181 ... 267s elapsed | 90,500,000 rows scanned, 4,596,643 kept
+2026-10-08 09:58:56,578 INFO:   [read labevents.csv.gz] 197 ... 288s elapsed | 98,500,000 rows scanned, 5,012,779 kept
+2026-10-08 09:59:17,103 INFO:   [read labevents.csv.gz] 213 ... 308s elapsed | 106,500,000 rows scanned, 5,409,242 kept
+2026-10-08 09:59:37,767 INFO:   [read labevents.csv.gz] 227 ... 329s elapsed | 113,500,000 rows scanned, 5,754,402 kept
+2026-10-08 09:59:58,979 INFO:   [read labevents.csv.gz] 241 ... 350s elapsed | 120,500,000 rows scanned, 6,118,078 kept
+2026-10-08 10:00:19,849 INFO:   [read labevents.csv.gz] 255 ... 371s elapsed | 127,500,000 rows scanned, 6,462,690 kept
+2026-10-08 10:00:40,466 INFO:   [read labevents.csv.gz] 269 ... 391s elapsed | 134,500,000 rows scanned, 6,824,294 kept
+2026-10-08 10:01:01,095 INFO:   [read labevents.csv.gz] 283 ... 412s elapsed | 141,500,000 rows scanned, 7,166,772 kept
+2026-10-08 10:01:21,437 INFO:   [read labevents.csv.gz] 297 ... 432s elapsed | 148,500,000 rows scanned, 7,533,269 kept
+2026-10-08 10:01:41,792 INFO:   [read labevents.csv.gz] 311 ... 453s elapsed | 155,500,000 rows scanned, 7,899,802 kept
+2026-10-08 10:01:49,501 INFO:   [read labevents.csv.gz] 317 ... 460s elapsed | 158,374,764 rows scanned, 8,043,930 kept (done)
+2026-10-08 10:02:59,816 INFO: MIMIC-IV: 74607 stays loaded, skipped: {'empty': 2, 'no_hemo': 220}
+2026-10-08 10:03:19,824 INFO:   [MIMIC preprocess] 4660/74607 ... 20s elapsed
+2026-10-08 10:03:39,827 INFO:   [MIMIC preprocess] 9063/74607 ... 40s elapsed
+2026-10-08 10:03:59,829 INFO:   [MIMIC preprocess] 13613/74607 ... 60s elapsed
+2026-10-08 10:04:19,832 INFO:   [MIMIC preprocess] 18326/74607 ... 80s elapsed
+2026-10-08 10:04:39,833 INFO:   [MIMIC preprocess] 22729/74607 ... 100s elapsed
+2026-10-08 10:04:59,836 INFO:   [MIMIC preprocess] 27453/74607 ... 120s elapsed
+2026-10-08 10:05:19,837 INFO:   [MIMIC preprocess] 32127/74607 ... 140s elapsed
+2026-10-08 10:05:39,840 INFO:   [MIMIC preprocess] 36597/74607 ... 160s elapsed
+2026-10-08 10:05:59,844 INFO:   [MIMIC preprocess] 40747/74607 ... 180s elapsed
+2026-10-08 10:06:19,847 INFO:   [MIMIC preprocess] 45240/74607 ... 200s elapsed
+2026-10-08 10:06:39,850 INFO:   [MIMIC preprocess] 49650/74607 ... 220s elapsed
+2026-10-08 10:06:59,852 INFO:   [MIMIC preprocess] 53948/74607 ... 240s elapsed
+2026-10-08 10:07:19,856 INFO:   [MIMIC preprocess] 58367/74607 ... 260s elapsed
+2026-10-08 10:07:39,861 INFO:   [MIMIC preprocess] 62611/74607 ... 280s elapsed
+2026-10-08 10:07:59,865 INFO:   [MIMIC preprocess] 66888/74607 ... 300s elapsed
+2026-10-08 10:08:19,865 INFO:   [MIMIC preprocess] 71263/74607 ... 320s elapsed
+2026-10-08 10:09:05,161 INFO: mimic: 74607 stays, prevalence 0.3091, load 419.2 min -> cache written

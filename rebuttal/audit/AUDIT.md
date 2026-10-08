@@ -240,3 +240,32 @@ and 11.5k if the reported 30.9% and 8.8% hold (carried).
 | G6 per-seed lambda, G8 Group DRO groups and epochs, G9 table values, G10 variance, Experiment A | original drivers are in the excluded folder; per-seed outputs only on the pod |
 | G1 external CONSORT, G3 external shares, F | needs a job with more memory than the local machine has free; needs a pod |
 | G7 pod contents | needs a pod to be started |
+
+## F-external: MIMIC-IV and eICU-CRD cohorts (verified, 2026-10-08)
+
+Built locally with `scripts/prepare_external.py` using the repository's own
+loaders, unchanged (`audit/outputs/f_external_{mimic,eicu}.json`, loader logs in
+`prep_{mimic,eicu}.log`). Percentages are shares of stay-hours over 48 padded
+rows per stay (every kept stay has 48 rows in the loader output, so short stays
+are padded; this differs from the PhysioNet table, which uses real record
+length).
+
+| | MIMIC-IV | eICU-CRD |
+|---|---|---|
+| Stays before loader filters | 74,829 | 132,611 |
+| Skipped: empty / no hemodynamic hour | 2 / 220 | 105 / 2,060 |
+| Stays kept | 74,607 | 130,446 |
+| Sepsis-3 positive (single-point SOFA) | 23,062 (30.91%) | 11,536 (8.84%) |
+| Positive share if the window-SOFA variant were used (loader log, all stays) | 51.0% | 12.0% |
+| Henderson-Hasselbalch computable, raw / after 6 h fill | 1.80% / 16.98% | 0.55% / 7.20% |
+| Severinghaus computable, raw / after fill | 5.11% / 23.70% | 2.40% / 13.20% |
+| MAP identity computable, raw / after fill | 79.1% / 90.0% | 80.1% / 91.3% |
+| PaO2 observed, raw / after fill | 6.16% / 24.75% | 2.60% / 13.55% |
+
+Cohort sizes 74,607 and 130,446 match the paper (D17 is now verified for both).
+Prevalence differs by 3.5x between the two external sites (30.9% vs 8.8%) and
+both differ from PhysioNet (3.3% / 2.1%); AUROC is prevalence-insensitive but
+AUPRC and calibration are not.
+The same forward-fill inflation seen in PhysioNet (D4) is present at both
+external sites: the acid-base and oxygenation constraints are computable in
+roughly 1-2% (MIMIC-IV) and 0.5-2% (eICU) of raw hours, and 7-24% after fill.

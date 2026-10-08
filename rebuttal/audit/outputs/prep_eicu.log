@@ -1,0 +1,78 @@
+2026-10-08 10:09:32,011 INFO:   [A1 read medication.csv.gz] 5 ... 24s elapsed
+2026-10-08 10:10:22,851 INFO:   [A1 read lab.csv.gz] 16 ... 21s elapsed
+2026-10-08 10:10:43,339 INFO:   [A1 read lab.csv.gz] 33 ... 41s elapsed
+2026-10-08 10:11:29,315 INFO:   [A1 read nurseCharting.csv.gz] 14 ... 21s elapsed
+2026-10-08 10:11:49,354 INFO:   [A1 read nurseCharting.csv.gz] 27 ... 41s elapsed
+2026-10-08 10:12:09,395 INFO:   [A1 read nurseCharting.csv.gz] 40 ... 61s elapsed
+2026-10-08 10:12:30,396 INFO:   [A1 read nurseCharting.csv.gz] 54 ... 82s elapsed
+2026-10-08 10:12:50,673 INFO:   [A1 read nurseCharting.csv.gz] 67 ... 102s elapsed
+2026-10-08 10:13:11,846 INFO:   [A1 read nurseCharting.csv.gz] 80 ... 124s elapsed
+2026-10-08 10:13:33,152 INFO:   [A1 read nurseCharting.csv.gz] 92 ... 145s elapsed
+2026-10-08 10:13:53,598 INFO:   [A1 read nurseCharting.csv.gz] 105 ... 165s elapsed
+2026-10-08 10:14:13,924 INFO:   [A1 read nurseCharting.csv.gz] 117 ... 186s elapsed
+2026-10-08 10:14:35,524 INFO:   [A1 read nurseCharting.csv.gz] 130 ... 207s elapsed
+2026-10-08 10:14:56,113 INFO:   [A1 read nurseCharting.csv.gz] 143 ... 228s elapsed
+2026-10-08 10:15:48,210 INFO:   [A1 read intakeOutput.csv.gz] 10 ... 21s elapsed
+2026-10-08 10:16:15,049 INFO:   [A1 read vitalAperiodic.csv.gz] 24 ... 21s elapsed
+2026-10-08 10:17:46,350 INFO: [A1/SOFA eICU mode=single] 11630/132611 sepsis+ (8.8%); window=12.0% single-point=8.8%; infection in 16167 stays
+2026-10-08 10:17:46,657 INFO: eICU: loading 132611 stays
+2026-10-08 10:17:46,658 INFO: eICU: reading vitalPeriodic (chunked)...
+2026-10-08 11:05:12,664 INFO:   [read vitalPeriodic.csv.gz] 8 ... 2846s elapsed | 8,000,000 rows scanned
+2026-10-08 11:05:33,289 INFO:   [read vitalPeriodic.csv.gz] 15 ... 2867s elapsed | 15,000,000 rows scanned
+2026-10-08 11:05:54,343 INFO:   [read vitalPeriodic.csv.gz] 31 ... 2888s elapsed | 31,000,000 rows scanned
+2026-10-08 11:06:15,684 INFO:   [read vitalPeriodic.csv.gz] 45 ... 2909s elapsed | 45,000,000 rows scanned
+2026-10-08 11:06:36,200 INFO:   [read vitalPeriodic.csv.gz] 62 ... 2930s elapsed | 62,000,000 rows scanned
+2026-10-08 11:06:57,491 INFO:   [read vitalPeriodic.csv.gz] 76 ... 2951s elapsed | 76,000,000 rows scanned
+2026-10-08 11:07:18,683 INFO:   [read vitalPeriodic.csv.gz] 87 ... 2972s elapsed | 87,000,000 rows scanned
+2026-10-08 11:07:38,762 INFO:   [read vitalPeriodic.csv.gz] 97 ... 2992s elapsed | 97,000,000 rows scanned
+2026-10-08 11:08:00,011 INFO:   [read vitalPeriodic.csv.gz] 107 ... 3013s elapsed | 107,000,000 rows scanned
+2026-10-08 11:08:21,710 INFO:   [read vitalPeriodic.csv.gz] 118 ... 3035s elapsed | 118,000,000 rows scanned
+2026-10-08 11:08:43,090 INFO:   [read vitalPeriodic.csv.gz] 130 ... 3056s elapsed | 130,000,000 rows scanned
+2026-10-08 11:09:05,147 INFO:   [read vitalPeriodic.csv.gz] 141 ... 3078s elapsed | 141,000,000 rows scanned
+2026-10-08 11:09:22,897 INFO: eICU: reading vitalAperiodic (chunked)...
+2026-10-08 11:09:44,025 INFO:   [read vitalAperiodic.csv.gz] 13 ... 21s elapsed | 13,000,000 rows scanned
+2026-10-08 11:10:04,585 INFO:   [read vitalAperiodic.csv.gz] 25 ... 42s elapsed | 25,000,000 rows scanned
+2026-10-08 11:10:05,810 INFO: eICU: reading lab (chunked)...
+2026-10-08 11:10:26,416 INFO:   [read lab.csv.gz] 16 ... 21s elapsed | 16,000,000 rows scanned
+2026-10-08 11:10:46,716 INFO:   [read lab.csv.gz] 31 ... 41s elapsed | 31,000,000 rows scanned
+2026-10-08 11:10:58,316 INFO: eICU: reading nurseCharting (chunked)...
+2026-10-08 11:11:19,544 INFO:   [read nurseCharting.csv.gz] 12 ... 21s elapsed | 12,000,000 rows scanned
+2026-10-08 11:11:40,435 INFO:   [read nurseCharting.csv.gz] 24 ... 42s elapsed | 24,000,000 rows scanned
+2026-10-08 11:12:01,186 INFO:   [read nurseCharting.csv.gz] 36 ... 63s elapsed | 36,000,000 rows scanned
+2026-10-08 11:12:21,999 INFO:   [read nurseCharting.csv.gz] 48 ... 84s elapsed | 48,000,000 rows scanned
+2026-10-08 11:12:43,550 INFO:   [read nurseCharting.csv.gz] 60 ... 105s elapsed | 60,000,000 rows scanned
+2026-10-08 11:13:05,139 INFO:   [read nurseCharting.csv.gz] 72 ... 127s elapsed | 72,000,000 rows scanned
+2026-10-08 11:13:25,712 INFO:   [read nurseCharting.csv.gz] 82 ... 147s elapsed | 82,000,000 rows scanned
+2026-10-08 11:13:46,440 INFO:   [read nurseCharting.csv.gz] 93 ... 168s elapsed | 93,000,000 rows scanned
+2026-10-08 11:14:08,091 INFO:   [read nurseCharting.csv.gz] 105 ... 190s elapsed | 105,000,000 rows scanned
+2026-10-08 11:14:29,068 INFO:   [read nurseCharting.csv.gz] 116 ... 211s elapsed | 116,000,000 rows scanned
+2026-10-08 11:14:49,726 INFO:   [read nurseCharting.csv.gz] 127 ... 231s elapsed | 127,000,000 rows scanned
+2026-10-08 11:15:11,791 INFO:   [read nurseCharting.csv.gz] 138 ... 253s elapsed | 138,000,000 rows scanned
+2026-10-08 11:15:32,404 INFO:   [read nurseCharting.csv.gz] 148 ... 274s elapsed | 148,000,000 rows scanned
+2026-10-08 11:16:33,939 INFO: eICU: 130446 stays loaded, skipped: {'empty': 105, 'no_hemo': 2060}
+2026-10-08 11:16:53,967 INFO:   [eICU preprocess] 5116/130446 ... 20s elapsed
+2026-10-08 11:17:13,969 INFO:   [eICU preprocess] 10286/130446 ... 40s elapsed
+2026-10-08 11:17:33,973 INFO:   [eICU preprocess] 15472/130446 ... 60s elapsed
+2026-10-08 11:17:53,975 INFO:   [eICU preprocess] 20338/130446 ... 80s elapsed
+2026-10-08 11:18:13,977 INFO:   [eICU preprocess] 24893/130446 ... 100s elapsed
+2026-10-08 11:18:33,980 INFO:   [eICU preprocess] 29192/130446 ... 120s elapsed
+2026-10-08 11:18:53,983 INFO:   [eICU preprocess] 33964/130446 ... 140s elapsed
+2026-10-08 11:19:13,986 INFO:   [eICU preprocess] 38913/130446 ... 160s elapsed
+2026-10-08 11:19:33,986 INFO:   [eICU preprocess] 43492/130446 ... 180s elapsed
+2026-10-08 11:19:53,989 INFO:   [eICU preprocess] 47902/130446 ... 200s elapsed
+2026-10-08 11:20:13,993 INFO:   [eICU preprocess] 52131/130446 ... 220s elapsed
+2026-10-08 11:20:33,997 INFO:   [eICU preprocess] 56387/130446 ... 240s elapsed
+2026-10-08 11:20:53,998 INFO:   [eICU preprocess] 60886/130446 ... 260s elapsed
+2026-10-08 11:21:14,002 INFO:   [eICU preprocess] 65952/130446 ... 280s elapsed
+2026-10-08 11:21:34,005 INFO:   [eICU preprocess] 71087/130446 ... 300s elapsed
+2026-10-08 11:21:54,006 INFO:   [eICU preprocess] 76045/130446 ... 320s elapsed
+2026-10-08 11:22:14,008 INFO:   [eICU preprocess] 81373/130446 ... 340s elapsed
+2026-10-08 11:22:34,010 INFO:   [eICU preprocess] 86791/130446 ... 360s elapsed
+2026-10-08 11:22:54,010 INFO:   [eICU preprocess] 92564/130446 ... 380s elapsed
+2026-10-08 11:23:14,014 INFO:   [eICU preprocess] 98087/130446 ... 400s elapsed
+2026-10-08 11:23:34,016 INFO:   [eICU preprocess] 103653/130446 ... 420s elapsed
+2026-10-08 11:23:54,016 INFO:   [eICU preprocess] 109432/130446 ... 440s elapsed
+2026-10-08 11:24:14,018 INFO:   [eICU preprocess] 114997/130446 ... 460s elapsed
+2026-10-08 11:24:34,020 INFO:   [eICU preprocess] 119911/130446 ... 480s elapsed
+2026-10-08 11:24:54,022 INFO:   [eICU preprocess] 125173/130446 ... 500s elapsed
+2026-10-08 11:25:56,097 INFO: eicu: 130446 stays, prevalence 0.0884, load 76.1 min -> cache written
