@@ -239,3 +239,26 @@ follows; they cannot be changed after results are seen.
    T5 mechanism and attribution experiments (B, E) as budget allows.
    Experiments that need all-site pretraining (A, confound 2) are out of
    budget and are reported as not run.
+
+### A3 - fixed training settings for all new runs (written 2026-10-09, before any experiment run)
+
+- Constraint warmup fraction = 0.4 for every new run (the function default is
+  0.3; the code comment in `config.py` and the corrected paper both say 0.4;
+  the original driver that passed it is not available, see DISCREPANCIES D7).
+  ERM (lambda = 0) uses the same code path and schedule, with the constraint
+  weight at zero. Other settings are the repository defaults: 30 pretraining
+  and 30 fine-tuning epochs, batch size 64, learning rate 3e-4 (pretraining),
+  mask probability 0.30, 80/20 patient split of Site A seeded by the run seed.
+- Seed 9001 (timing) is not used for any reported number.
+- Seeds enter the model initialisation and the Site A split; the PhysioNet
+  cache itself does not depend on the seed at fraction 1.0.
+- XGBoost: the fixed hyperparameters of `src/baselines.py` (200 trees, depth 4,
+  learning rate 0.05, subsample 0.8, column subsample 0.8), the same 68
+  aggregate features (mean, min, max, observation rate per variable), no
+  tuning, trained on the same 80% Site A split as the neural arms for the
+  same seed.
+- Group DRO is not run from the repository defaults without a decision on its
+  groups (with Site A only there is one group, so it reduces to a reweighted
+  ERM). If it is run, it is run as the repository's `DROFinetuner` with
+  `env_id` groups (a single group) and reported as exactly that, not as a
+  multi-site DRO.

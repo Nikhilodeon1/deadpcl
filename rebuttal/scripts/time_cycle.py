@@ -71,7 +71,7 @@ def main():
 
     t = time.time()
     run_pretraining(model, PhysiologicalConstraintLoss(), pt_train, pt_val, n_epochs=pt_ep, lam=lam,
-                    mask_prob=MASK_PROB, device=device, save_path=pre_ckpt)
+                    mask_prob=MASK_PROB, device=device, save_path=pre_ckpt, warmup_fraction=0.4)
     stages["pretrain_s"] = time.time() - t
     model.load_state_dict(load_state_dict_flexible(pre_ckpt, device="cpu"))
 
