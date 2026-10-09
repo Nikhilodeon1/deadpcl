@@ -262,3 +262,31 @@ follows; they cannot be changed after results are seen.
   ERM). If it is run, it is run as the repository's `DROFinetuner` with
   `env_id` groups (a single group) and reported as exactly that, not as a
   multi-site DRO.
+
+### A3 - implementation details fixed before any result (written 2026-10-09)
+
+- Warmup fraction for the constraint weight is 0.4 in every run (the value the
+  code comments and the paper's corrected description give; the function
+  default of 0.3 is not used). The ERM arm is the same code path with
+  lambda = 0, so that the only difference between ERM and PCL is the constraint
+  weight. This differs from the ERM routine in `src/baselines.py` (gradient
+  clip 0.5 vs 1.0, D14); that routine is not used.
+- Epochs: pretraining 30, fine-tuning 30 (config defaults). Batch 64, learning
+  rates and fine-tuning schedule as in the code. No setting is tuned.
+- Arms and seeds are produced by `scripts/run_arms.py` (T1, T2 lists fixed in
+  the file) and `scripts/xgb_local.py` (XGBoost: 200 trees, depth 4, learning
+  rate 0.05, subsample 0.8, colsample 0.8, standardized 68 aggregate features,
+  no class weighting, the same 80% Site-A training split as the neural arms,
+  seeds 42-51).
+- Statistics: `scripts/analyze.py`. Paired contrasts on target-site AUROC:
+  two-level percentile bootstrap (seeds, then stays; 1000 draws; stays are
+  resampled once per draw and shared by both arms), t-interval as a robustness
+  view. ECE uses 10 equal-width bins. A "worse" claim requires 10 seeds and an
+  interval entirely below zero.
+- External sites (MIMIC-IV, eICU) are scored locally from the returned
+  checkpoints with `scripts/score_checkpoint.py`; PhysioNet sites are scored on
+  the training machine. Per-stay predictions use hashed ids and are aligned by
+  those ids.
+- The compute cap is enforced by `run_arms.py --max-hours`; it never starts an
+  arm that would exceed the stated wall-clock budget. Arms not reached are
+  reported as not run.

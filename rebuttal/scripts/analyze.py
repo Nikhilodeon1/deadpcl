@@ -56,6 +56,10 @@ class Store:
             m = re.match(r"lam([0-9.]+)_s(\d+)$", os.path.basename(d))
             if m:
                 self.tags[(float(m.group(1)), int(m.group(2)))] = os.path.basename(d)
+        for d in glob.glob(os.path.join(root, "xgb_s*")):
+            m = re.match(r"xgb_s(\d+)$", os.path.basename(d))
+            if m:
+                self.tags[(-1.0, int(m.group(1)))] = os.path.basename(d)   # XGBoost arm
 
     def get(self, lam, seed, site):
         key = (lam, seed, site)
@@ -99,6 +103,7 @@ def make_arms(store, seeds_all):
             oracle[site] = {sd: lam_star for sd in seeds_ok}
         else:
             oracle[site] = {}
+    arms["XGBoost"] = {site: {sd: -1.0 for sd in seeds_all if store.has(-1.0, sd, site)} for site in SITES}
     arms["PCL_srcsel"] = srcsel
     arms["PCL_oracle"] = oracle
     return arms
@@ -172,9 +177,10 @@ def main():
 
     contrasts = []
     stop_b = []
-    for other in ("PCL_0.5", "PCL_srcsel", "PCL_oracle"):
+    pairs = [(o, "ERM") for o in ("PCL_0.5", "PCL_srcsel", "PCL_oracle", "XGBoost")] +             [("XGBoost", "PCL_0.5")]
+    for other, ref in pairs:
         for site in SITES:
-            a, b = arms["ERM"][site], arms[other][site]
+            a, b = arms[ref][site], arms[other][site]
             seeds = sorted(set(a) & set(b))
             if len(seeds) < 2:
                 continue
@@ -183,11 +189,12 @@ def main():
             lo_b, hi_b = boot_diff(store, a, b, site, seeds, args.n_boot, rng)
             t = stats.t.interval(0.95, len(d) - 1, loc=d.mean(), scale=stats.sem(d))
             v = verdict(lo_b, hi_b, len(seeds))
-            contrasts.append({"contrast": f"{other} - ERM", "site": site, "n_seeds": len(seeds),
+            contrasts.append({"contrast": f"{other} - {ref}", "site": site, "n_seeds": len(seeds),
                               "diff_mean": float(d.mean()), "boot_lo": float(lo_b), "boot_hi": float(hi_b),
                               "t_lo": float(t[0]), "t_hi": float(t[1]), "verdict": v})
             if lo_b > 0:
-                stop_b.append(f"{other} - ERM at {site}")
+                if other.startswith("PCL") and ref == "ERM":
+                    stop_b.append(f"{other} - ERM at {site}")
     write_csv(os.path.join(args.out, "paired_contrasts.csv"), contrasts)
     if stop_b:
         print("STOP B CANDIDATE (paired interval above zero):", "; ".join(stop_b))
