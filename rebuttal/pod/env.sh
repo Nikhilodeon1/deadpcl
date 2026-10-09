@@ -25,6 +25,8 @@ export NUM_WORKERS="${NUM_WORKERS:-8}"
 
 # Keep big temporary files off the small persistent disk.
 export PIP_CACHE_DIR="${PIP_CACHE_DIR:-/tmp/pip_cache}"
+export UV_CACHE_DIR="${UV_CACHE_DIR:-/tmp/uv_cache}"   # uv defaults to ~/.cache/uv, which fills the small home disk
+export UV_LINK_MODE="${UV_LINK_MODE:-copy}"             # cache and venv are on the same disk anyway; avoid cross-device link warnings
 export TMPDIR="${TMPDIR:-/tmp}"
 export PYTHONDONTWRITEBYTECODE=1
 
