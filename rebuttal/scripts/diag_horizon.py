@@ -28,6 +28,8 @@ def cut_samples(samples, h, rng):
             cut = max(1, int(np.argmax(np.asarray(s["label"]) > 0)) - h)
         else:
             cut = int(min(rng.choice(cuts), n_real))
+        first_obs = int(np.nonzero(np.asarray(s["mask"]).any(axis=1))[0].min())
+        cut = max(cut, first_obs + 1)            # always keep at least one observed hour
         t = copy.copy(s)
         v, m = np.array(s["values"], copy=True), np.array(s["mask"], copy=True)
         v[cut:] = 0.0
