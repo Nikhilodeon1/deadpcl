@@ -190,3 +190,52 @@ Written before the run; nothing below changes any rule above.
 - Not allowed until a further addendum: any run with seeds 42-51, any lambda
   sweep, any DRO / XGBoost run. Open items 1-4 above still block those.
 
+
+### A2 - decisions on the open items (written 2026-10-09, before any experiment run)
+
+The owner delegated these decisions. They fix the rules for everything that
+follows; they cannot be changed after results are seen.
+
+1. Task definition (STOP A). The submitted definition is kept and described
+   exactly as implemented: per-stay label = any positive hourly label in the
+   first 48 rows; input = the same 48 rows; the head reads the last observed
+   hour. All main experiments use it. No horizon-based model is trained
+   (retraining on a second task roughly doubles the data work and does not fit
+   the budget or the deadline). Instead, one inference-only diagnostic (H):
+   the trained models are scored with each positive stay's input cut so that it
+   ends h hours before the first positive label (h = 0, 6, 12), with negative
+   stays cut to a length drawn from the positives' cut-length distribution.
+   Reported as a diagnostic of the existing models, not as a horizon-trained
+   model. A horizon-trained comparison is stated as a limitation.
+2. Archive folder. Not read. Quantities that need the original drivers
+   (per-seed lambda, DRO groups and epochs, table values, seed-variance
+   provenance, Experiment A) stay unresolved and are reported as unresolved.
+   If the pod inventory shows copies of those drivers or outputs, they may be
+   used and are cited by their path on the pod.
+3. Oracle lambda (STOP B). The lambda sweep is run and reported with equal
+   prominence whatever it shows. The best lambda chosen on target-site AUROC is
+   labeled "oracle (target-selected, not deployable)". If any variant beats
+   ERM with a paired interval above zero, STOP B is written up in
+   STOP_REPORT.md, work continues (owner pre-authorized), and the headline
+   claim is restated as "the sign of PCL - ERM depends on how lambda is
+   chosen", not as "PCL is worse".
+4. Definition of "PCL" in the main table. Three rows, all reported:
+   (i) PCL lambda = 0.5 (the only value with documented provenance in the code),
+   (ii) PCL with lambda chosen per seed by source-validation AUROC over the
+   grid {0, 0.1, 0.5, 1, 2, 5} (label-free with respect to every target),
+   (iii) oracle lambda per target (labeled as in item 3). ERM is lambda = 0.
+5. Seeds. 42, 43, 44 (original) and 45-51 (new), ten in total. Original seeds
+   stay in every aggregate. If the budget allows fewer than ten for some arm,
+   the arm is reported with the seeds it has, in the table, with n stated;
+   seeds are never dropped after the fact.
+6. Priority under the $15 cap (fixed order; later tiers run only if money
+   remains after the earlier ones, and an unrun tier is reported as unrun):
+   T1 main comparison ERM and PCL lambda = 0.5, seeds 42-51;
+   T2 lambda sweep {0.1, 1, 2, 5} on seeds 42-46 (needed for items 3-4 rows
+      ii and iii);
+   T3 Group DRO and XGBoost on seeds 42-51 (XGBoost is CPU-only and runs
+      locally at no cost);
+   T4 diagnostic H, calibration, bootstrap statistics (inference / CPU only);
+   T5 mechanism and attribution experiments (B, E) as budget allows.
+   Experiments that need all-site pretraining (A, confound 2) are out of
+   budget and are reported as not run.
