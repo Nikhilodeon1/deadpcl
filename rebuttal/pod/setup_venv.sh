@@ -1,39 +1,39 @@
 #!/usr/bin/env bash
-# Build the Python environment in /tmp (not in the small persistent home disk).
-# Re-run after every pod replacement; takes a few minutes.
-set -euo pipefail
+# Build the Python environment in /tmp, reusing the image's CUDA torch.
+# Never downloads torch by default: the CUDA wheels are several GB and crashed the pod
+# (INSTALL_TORCH=1 overrides this, only after checking free space). No package caches are kept.
+set -eu
 . "$(dirname "${BASH_SOURCE[0]}")/env.sh"
-
-PY="${PYTHON:-python3}"
-# V100 is compute capability 7.0. CUDA 12.6 wheels of torch 2.6-2.8 still ship it.
-TORCH_INDEX="${TORCH_INDEX:-https://download.pytorch.org/whl/cu126}"
-TORCH_SPEC="${TORCH_SPEC:-torch>=2.6,<2.9}"
-PKGS="numpy pandas scikit-learn scipy matplotlib xgboost"
-
-if ! "$PY" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 10) else 1)'; then
-  echo "python3 is older than 3.10 ($("$PY" --version 2>&1))." >&2
-  echo "Install a newer one with uv (pip install uv; uv python install 3.11) and rerun with PYTHON=<path>." >&2
-  exit 1
+PY="${PYTHON:-/opt/conda/bin/python}"
+VENV="$RB_VENV"
+echo "== disk / memory"; df -h ~ /tmp | cat; free -g | head -2
+echo "== what the image already has"
+"$PY" - <<'PYEOF'
+import importlib.util as u
+for m in ["torch","numpy","pandas","sklearn","scipy","matplotlib","xgboost"]:
+    print(f"{m:12s}", "yes" if u.find_spec(m) else "MISSING")
+try:
+    import torch
+    print("torch", torch.__version__, "cuda", torch.version.cuda, "available", torch.cuda.is_available())
+    if torch.cuda.is_available(): print("device", torch.cuda.get_device_name(0), torch.cuda.get_device_capability(0))
+except Exception as e:
+    print("torch import failed:", e)
+PYEOF
+HAS=$("$PY" -c "
+try:
+    import torch; print('1' if torch.cuda.is_available() else '0')
+except Exception: print('0')")
+if [ "$HAS" != "1" ] && [ "${INSTALL_TORCH:-0}" != "1" ]; then
+  echo "No CUDA torch in $PY. Not installing one (several GB; crashed this pod before)."; exit 2
 fi
-
-if command -v uv >/dev/null 2>&1; then
-  uv venv "$RB_VENV" --python "$PY"
-  uv pip install --python "$RB_VENV/bin/python" "$TORCH_SPEC" --index-url "$TORCH_INDEX"
-  uv pip install --python "$RB_VENV/bin/python" $PKGS
-else
-  "$PY" -m venv "$RB_VENV"
-  "$RB_VENV/bin/python" -m pip install --upgrade pip
-  "$RB_VENV/bin/python" -m pip install "$TORCH_SPEC" --index-url "$TORCH_INDEX"
-  "$RB_VENV/bin/python" -m pip install $PKGS
-fi
-
-"$RB_VENV/bin/python" - <<'PY'
-import torch
-print("torch", torch.__version__, "cuda build", torch.version.cuda)
-print("cuda available:", torch.cuda.is_available())
-if torch.cuda.is_available():
-    print("device:", torch.cuda.get_device_name(0), "capability:", torch.cuda.get_device_capability(0))
-    x = torch.randn(256, 256, device="cuda"); print("matmul ok:", float((x @ x).sum()) == float((x @ x).sum()))
-else:
-    print("WARNING: no GPU visible to torch. If the driver is old, try TORCH_INDEX=https://download.pytorch.org/whl/cu121")
-PY
+rm -rf "$VENV"
+"$PY" -m venv --system-site-packages "$VENV"
+MISSING=$("$PY" - <<'PYEOF'
+import importlib.util as u
+pk={"numpy":"numpy","pandas":"pandas","sklearn":"scikit-learn","scipy":"scipy","matplotlib":"matplotlib","xgboost":"xgboost"}
+print(" ".join(p for m,p in pk.items() if not u.find_spec(m)))
+PYEOF
+)
+if [ -n "$MISSING" ]; then echo "installing small packages: $MISSING"; "$VENV/bin/python" -m pip install --no-cache-dir $MISSING; fi
+"$VENV/bin/python" -c "import torch,numpy,pandas,sklearn,scipy,xgboost;print('torch',torch.__version__,'cuda',torch.cuda.is_available())"
+echo "env ready: $VENV"

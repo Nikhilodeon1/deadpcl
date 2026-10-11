@@ -71,6 +71,12 @@ per hour, so the timed cycle can be turned into dollars
 training; the A40 x2.5 slowdown assumption above does not transfer, and the
 timed cycle replaces it.
 
+## Measured cycle time (V100, source-only, one arm)
+
+278 s compute (pretrain 170 s, fine-tune 102 s, scoring 6 s) + one-time 157 s
+data load (cached). Replaces the carried 20-min estimate; about 4x lower.
+Projected: T1 about 1.6 h, T2 about 1.6 h. Price per hour: not yet given.
+
 ## Log
 
 | Date | Pod | Hours | Cost | Purpose |

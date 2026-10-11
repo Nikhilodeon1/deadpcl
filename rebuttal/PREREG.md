@@ -290,3 +290,18 @@ follows; they cannot be changed after results are seen.
 - The compute cap is enforced by `run_arms.py --max-hours`; it never starts an
   arm that would exceed the stated wall-clock budget. Arms not reached are
   reported as not run.
+
+### A4 - measured cost and run plan (written 2026-10-11, before tier T1 / T2 are run)
+
+- Measured on the pod (16+ cores, one V100 32 GB; seed 9001, not an experiment
+  seed): one source-only cycle (30 pretraining + 30 fine-tuning epochs, scoring
+  Site B) takes 278 s of compute (pretrain 170 s, fine-tune 102 s, scoring 6 s),
+  plus a one-time 157 s data load that is cached. Source: `outputs/timing_timed.json`.
+- Projection: T1 (20 arms) about 1.6 h; T2 (20 arms) about 1.6 h; both about
+  3.3 h. The hourly price of the pod has not been given to me; the $15 cap
+  holds if it is at most about $4.50/h. The wall-clock guard stays at
+  `--max-hours 2` per tier.
+- Plan: run T1 then T2 unchanged from A2/A3. T3 (Group DRO) follows only after
+  T1 and T2 complete and only if time remains; XGBoost (T3, CPU) is already
+  complete for seeds 42-51.
+- Timing-run metrics are not used or reported.
