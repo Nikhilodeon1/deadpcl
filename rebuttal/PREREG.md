@@ -305,3 +305,14 @@ follows; they cannot be changed after results are seen.
   T1 and T2 complete and only if time remains; XGBoost (T3, CPU) is already
   complete for seeds 42-51.
 - Timing-run metrics are not used or reported.
+
+### A5 - housekeeping note (written 2026-10-11, no change to any rule)
+
+Two sections above are both labeled A3 (both dated 2026-10-09, both written before
+any experiment run). They are consistent and both remain in force: warmup
+fraction 0.4, 30 pretraining and 30 fine-tuning epochs, ERM as lambda = 0 in the
+same code path, XGBoost with the fixed repository hyperparameters, seeds 42-51.
+The tier lists T1 and T2 are those in `scripts/run_arms.py`, unchanged since
+commit 63399da, which is the code that produced the arms completed so far.
+`scripts/aggregate.py` / `run_xgb.py` and `scripts/analyze.py` / `xgb_local.py`
+overlap in purpose; the pack states which one produced each table.
