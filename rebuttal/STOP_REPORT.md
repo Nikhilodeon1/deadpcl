@@ -116,3 +116,27 @@ excluded folder).
 - Did not read the excluded archive folder, which blocks G6, G8 (Group DRO
   groups), G9, G10 and Experiment A.
 - Did not push anything; the `rebuttal` branch is local.
+
+## Update 2026-10-11: after the 40 PhysioNet-side arms (Site B only; external sites still being scored)
+
+Source: `outputs/runs/*.json`, per-stay predictions, `pack/tables/siteb_interim/` (interim: MIMIC-IV / eICU
+are not yet scored for all arms, ignore those rows).
+
+- Trigger B (PCL beats ERM with a paired interval above zero): NOT fired at Site B. Lambda = 0.5 minus
+  ERM over 10 seeds (42-51): mean difference -0.026 AUROC, two-level bootstrap 95% interval
+  [-0.063, +0.013], t-interval [-0.066, +0.014]: no evidence of a difference in either direction. The
+  seed-to-seed SD of one arm is 4-5 points. Not yet evaluated at MIMIC-IV and eICU.
+  The oracle row at Site B is lambda = 0 (best mean Site B AUROC over seeds 42-46), so the oracle
+  difference to ERM is exactly 0 there.
+- Trigger D (new numbers vs carried numbers): the carried single-seed sweep from the sibling project's
+  figure script is NOT reproduced. Seed 42, Site B AUROC, carried vs new:
+  lambda 0: 0.6923 vs 0.7219; lambda 0.1: 0.7371 vs 0.7150; lambda 0.5: 0.7495 vs 0.7138;
+  lambda 1: 0.6749 vs 0.6321; lambda 2: 0.6527 vs 0.6969; lambda 5: 0.5972 vs 0.7112.
+  Source-validation AUROC for lambda 0 is close (0.8350 vs 0.8363). Differences of 3-5 points per cell
+  are the size of the seed-to-seed SD (4-5 points), and the hardware, library versions and (possibly)
+  pipeline details differ from the original run, which I cannot inspect. The earlier warning that a
+  hindsight-best lambda beats lambda = 0 by 5-11 points is therefore not supported by the 10-seed data
+  at Site B; a single-seed sweep is not a reliable basis for a claim.
+- XGBoost (fixed recipe, 10 seeds) is 0.042 AUROC above ERM at Site B with a bootstrap interval that
+  includes zero [-0.005, +0.087] and 0.068 above lambda = 0.5 with an interval above zero
+  [+0.023, +0.115].

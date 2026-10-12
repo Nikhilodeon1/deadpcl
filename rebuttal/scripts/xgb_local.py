@@ -14,7 +14,7 @@ import numpy as np
 import rb_common as rb
 
 
-def features(samples):
+def features(samples, site=""):
     X = np.empty((len(samples), 0), dtype=np.float32)
     rows = []
     for s in samples:
@@ -29,7 +29,7 @@ def features(samples):
                 row.extend([obs.mean(), obs.min(), obs.max(), m[:, v].mean()])
         rows.append(row)
     y = np.array([float(np.sum(s["label"]) > 0) for s in samples], dtype=np.float32)
-    ids = [rb.hash_id("", str(s.get("patient_id", "")), s.get("stay_id", 0)) for s in samples]
+    ids = [rb.hash_id(site, str(s.get("patient_id", "")), s.get("stay_id", 0)) for s in samples]
     return np.array(rows, dtype=np.float32), y, ids
 
 
@@ -50,7 +50,7 @@ def main():
     Xa, ya, _ = features(src)
     feats = {}
     for site in args.sites:
-        feats[site] = features(rb.load_site_cached(names[site], 1.0, 0))
+        feats[site] = features(rb.load_site_cached(names[site], 1.0, 0), site)
     ds = ICUDataset(src)
 
     for seed in args.seeds:

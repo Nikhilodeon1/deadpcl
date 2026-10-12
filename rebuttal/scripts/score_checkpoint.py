@@ -17,6 +17,8 @@ def main():
     ap.add_argument("--ckpt", help="one checkpoint file")
     ap.add_argument("--tag", help="name for the one checkpoint")
     ap.add_argument("--ckpt-dir", help="score every <tag>_ft.pt in this folder (skips tags already scored)")
+    ap.add_argument("--lams", type=float, nargs="+", default=None,
+                    help="with --ckpt-dir: only score checkpoints of these lambda values (order of work)")
     ap.add_argument("--sites", nargs="+", default=["mimic", "eicu"], choices=["mimic", "eicu"])
     args = ap.parse_args()
 
@@ -32,6 +34,9 @@ def main():
     if args.ckpt_dir:
         jobs = [(f[:-len("_ft.pt")], os.path.join(args.ckpt_dir, f))
                 for f in sorted(os.listdir(args.ckpt_dir)) if f.endswith("_ft.pt")]
+        if args.lams is not None:
+            keep = tuple(f"lam{l:g}_s" for l in args.lams)
+            jobs = [j for j in jobs if j[0].startswith(keep)]
     else:
         assert args.ckpt and args.tag, "give --ckpt and --tag, or --ckpt-dir"
         jobs = [(args.tag, args.ckpt)]
@@ -39,7 +44,7 @@ def main():
     loaders = {}
     for site in args.sites:
         samples = rb.load_site_cached(site, 1.0, 0)   # cache built by prepare_external.py
-        loaders[site] = DataLoader(ICUDataset(samples), batch_size=BATCH_SIZE, shuffle=False, num_workers=0)
+        loaders[site] = DataLoader(ICUDataset(samples), batch_size=512, shuffle=False, num_workers=0)
 
     for tag, ckpt in jobs:
         out = os.path.join(rb.RB_OUT, "scores", f"{tag}.json")
