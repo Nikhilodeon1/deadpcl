@@ -140,3 +140,26 @@ are not yet scored for all arms, ignore those rows).
 - XGBoost (fixed recipe, 10 seeds) is 0.042 AUROC above ERM at Site B with a bootstrap interval that
   includes zero [-0.005, +0.087] and 0.068 above lambda = 0.5 with an interval above zero
   [+0.023, +0.115].
+
+## Update 2026-10-12: Trigger B fired on the oracle row only (handled as pre-registered in PREREG A2 item 3)
+
+Source: `pack/tables/final/paired_contrasts.csv`, `lambda_sweep.csv`, 40 PhysioNet-side arms scored on all four targets.
+
+- Fired: "PCL_oracle - ERM" at eICU, 5 seeds (42-46), mean difference +0.039 AUROC, two-level bootstrap
+  95% interval [+0.023, +0.057]. The oracle picks, per target site, the lambda with the best mean target AUROC;
+  at eICU that is lambda = 5 (mean 0.609 vs ERM 0.594 on seeds 42-51). It is labeled "oracle (target-selected,
+  not deployable)": the interval does not account for choosing lambda on the same target data and seeds
+  (selection bias), so +0.039 is an upper-end estimate of what a user could obtain.
+- Not fired in any deployable variant:
+  - lambda = 0.5 minus ERM, 10 seeds: Site B -0.026 [-0.063, +0.013]; MIMIC-IV +0.001 [-0.021, +0.020];
+    eICU -0.003 [-0.031, +0.027].
+  - lambda chosen per seed by source-validation AUROC minus ERM (5 seeds, lambda grid fully run for seeds 42-46 only):
+    Site B +0.008 [-0.003, +0.022]; MIMIC-IV +0.019 [0.000, +0.041]; eICU +0.016 [0.000, +0.034].
+    The lower bounds are at zero because the selector picked lambda = 0 for part of the seeds (difference exactly 0);
+    verdict "no evidence of difference". This is the closest deployable variant to firing and is stated as such.
+- Consequence for the claim (decision recorded in PREREG A2): the sign of PCL - ERM depends on how lambda is
+  chosen. With a documented value (0.5) there is no evidence of a difference at any site over 10 seeds.
+  With a target-selected value at eICU there is a gain. The paper's sentence "PCL falls below ERM at every site"
+  is not supported by the 10-seed paired data in any row.
+- Not done: the timestep-masking variant and the no-Severinghaus variant (the two variants the work order names as
+  especially likely to fire B) were not run; budget and time went to the main comparison and the sweep.
