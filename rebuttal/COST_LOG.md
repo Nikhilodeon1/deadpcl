@@ -93,3 +93,8 @@ Projected: T1 about 1.6 h, T2 about 1.6 h. Price per hour: not yet given.
 - Local CPU work (external cohort preparation, scoring 40 checkpoints on MIMIC-IV and eICU, XGBoost, statistics)
   has no cloud cost.
 - Spend log entries above that say "not yet given" are unchanged: price still unknown.
+
+## Price correction (2026-10-12)
+
+The GPU was a free research allocation (no hourly charge). Cloud spend for this work is $0.00;
+the BUDGET_CAP_USD = 15 constraint was never binding. The 4.7 GPU-hours above are time, not dollars.
