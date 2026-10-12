@@ -147,7 +147,7 @@ Source: `pack/tables/final/paired_contrasts.csv`, `lambda_sweep.csv`, 40 PhysioN
 
 - Fired: "PCL_oracle - ERM" at eICU, 5 seeds (42-46), mean difference +0.039 AUROC, two-level bootstrap
   95% interval [+0.023, +0.057]. The oracle picks, per target site, the lambda with the best mean target AUROC;
-  at eICU that is lambda = 5 (mean 0.609 vs ERM 0.594 on seeds 42-51). It is labeled "oracle (target-selected,
+  at eICU that is lambda = 5 (mean 0.609 over seeds 42-46; ERM on the same five seeds is about 0.570, on all ten seeds 0.594). It is labeled "oracle (target-selected,
   not deployable)": the interval does not account for choosing lambda on the same target data and seeds
   (selection bias), so +0.039 is an upper-end estimate of what a user could obtain.
 - Not fired in any deployable variant:

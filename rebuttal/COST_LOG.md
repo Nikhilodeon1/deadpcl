@@ -82,3 +82,14 @@ Projected: T1 about 1.6 h, T2 about 1.6 h. Price per hour: not yet given.
 | Date | Pod | Hours | Cost | Purpose |
 |---|---|---|---|---|
 | (none) | | | | |
+
+## Final accounting (2026-10-12)
+
+- GPU compute actually used: 40 neural arms = 4.57 GPU-hours (mean 6.9 min per arm; `outputs/runs/*.json`
+  field `arm_seconds`), plus the dry run and the timed run (about 0.15 h). Total about 4.7 GPU-hours on one V100 32 GB.
+  The arms were slower than the 4.6 min measured in the timing run; pods differ in speed.
+- Dollar cost: the hourly price of the pod was not given to me, so the dollar amount is NOT computed.
+  The $15 cap holds if the price was at most about $3.19 per hour (15 / 4.7).
+- Local CPU work (external cohort preparation, scoring 40 checkpoints on MIMIC-IV and eICU, XGBoost, statistics)
+  has no cloud cost.
+- Spend log entries above that say "not yet given" are unchanged: price still unknown.

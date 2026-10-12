@@ -1,0 +1,5 @@
+cohort,stays,positives,prevalence,HH_raw,HH_after_fill,Sev_raw,Sev_after_fill,PaO2_raw
+Site A,10381,340,3.28%,3.04%,27.69%,6.99%,26.08%,7.29% (reconstructed from saturation)
+Site B,14779,304,2.06%,0.19%,0.56%,1.66%,8.77%,1.94% (reconstructed from saturation)
+MIMIC-IV,74607,23062,30.91%,1.80%,16.98%,5.11%,23.70%,6.16%
+eICU-CRD,130446,11536,8.84%,0.55%,7.20%,2.40%,13.20%,2.60%

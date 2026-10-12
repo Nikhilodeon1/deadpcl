@@ -157,7 +157,7 @@ tables; goes in experiment F on a pod).
 
 ## G5. Composition-to-gap ratio
 
-Defined in the detector project, `reboot/detectors/checks/
+Defined in the detector project, the detector project's `checks/
 check5_missingness_scale.py:99-134` (`rel(t) = |t0 - t1| / max(|t0|, |t1|)`):
 
     naive aggregate(site)  = mean over stays of [mean over that stay's computable

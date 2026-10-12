@@ -1,0 +1,12 @@
+input,arm,n_seeds,auroc_mean,auroc_sd,boot_lo,boot_hi,t_lo,t_hi
+full 48 h,ERM,10,0.689,0.042,,,,
+full 48 h,PCL_0.5,10,0.662,0.052,,,,
+ends 0 h before first label,ERM,10,0.558,0.028,,,,
+ends 0 h before first label,PCL_0.5,10,0.543,0.027,,,,
+ends 0 h before first label,PCL_0.5 - ERM,10,-0.015,0.033,-0.039,0.007,-0.039,0.008
+ends 6 h before first label,ERM,10,0.552,0.018,,,,
+ends 6 h before first label,PCL_0.5,10,0.545,0.027,,,,
+ends 6 h before first label,PCL_0.5 - ERM,10,-0.007,0.027,-0.027,0.013,-0.027,0.012
+ends 12 h before first label,ERM,10,0.569,0.018,,,,
+ends 12 h before first label,PCL_0.5,10,0.565,0.026,,,,
+ends 12 h before first label,PCL_0.5 - ERM,10,-0.005,0.030,-0.027,0.016,-0.026,0.017

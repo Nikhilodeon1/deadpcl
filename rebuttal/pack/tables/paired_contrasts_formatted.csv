@@ -1,0 +1,16 @@
+contrast,site,n_seeds,diff,boot95,t95,verdict
+PCL_0.5 - ERM,Site B,10,-0.026,"[-0.063, +0.013]","[-0.066, +0.014]",no evidence of difference
+PCL_0.5 - ERM,MIMIC-IV,10,+0.000,"[-0.021, +0.020]","[-0.025, +0.026]",no evidence of difference
+PCL_0.5 - ERM,eICU-CRD,10,-0.003,"[-0.031, +0.027]","[-0.038, +0.032]",no evidence of difference
+PCL_srcsel - ERM,Site B,5,+0.007,"[-0.003, +0.022]","[-0.010, +0.024]",no evidence of difference
+PCL_srcsel - ERM,MIMIC-IV,5,+0.019,"[+0.000, +0.041]","[-0.014, +0.052]",no evidence of difference
+PCL_srcsel - ERM,eICU-CRD,5,+0.016,"[+0.000, +0.034]","[-0.012, +0.043]",no evidence of difference
+PCL_oracle - ERM,Site B,5,+0.000,"[+0.000, +0.000]",n/a,no evidence of difference
+PCL_oracle - ERM,MIMIC-IV,5,+0.017,"[-0.008, +0.039]","[-0.021, +0.054]",no evidence of difference
+PCL_oracle - ERM,eICU-CRD,5,+0.039,"[+0.023, +0.057]","[+0.012, +0.066]",better
+XGBoost - ERM,Site B,10,+0.042,"[-0.005, +0.086]","[+0.007, +0.077]",no evidence of difference
+XGBoost - ERM,MIMIC-IV,10,+0.004,"[-0.017, +0.025]","[-0.023, +0.031]",no evidence of difference
+XGBoost - ERM,eICU-CRD,10,+0.067,"[+0.037, +0.092]","[+0.035, +0.099]",better
+XGBoost - PCL_0.5,Site B,10,+0.068,"[+0.024, +0.116]","[+0.030, +0.106]",better
+XGBoost - PCL_0.5,MIMIC-IV,10,+0.004,"[-0.027, +0.029]","[-0.030, +0.038]",no evidence of difference
+XGBoost - PCL_0.5,eICU-CRD,10,+0.070,"[+0.042, +0.097]","[+0.035, +0.105]",better
