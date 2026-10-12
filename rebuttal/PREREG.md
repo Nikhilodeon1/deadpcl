@@ -316,3 +316,31 @@ The tier lists T1 and T2 are those in `scripts/run_arms.py`, unchanged since
 commit 63399da, which is the code that produced the arms completed so far.
 `scripts/aggregate.py` / `run_xgb.py` and `scripts/analyze.py` / `xgb_local.py`
 overlap in purpose; the pack states which one produced each table.
+
+### A6 - attribution and mechanism variants (written 2026-10-12, before any variant run)
+
+The GPU turned out to be a free allocation, so the cost cap no longer limits these; wall-clock time does.
+Variants of the corrected PCL pipeline, each flipped one factor at a time (leave-one-in), source-only pretraining on
+Site A, seeds 42-46 (the five seeds on which the main arms and the lambda sweep already exist), 30 + 30 epochs,
+all other settings as in A3:
+
+- `nosev` (F6, M14, C1): PCL lambda 0.5 with the Severinghaus term removed from the constraint loss
+  (`rb_variants.NoSeveringhausLoss`; verified numerically to equal the main loss minus the SpO2 term). The ERM reference
+  is the main-pipeline ERM (lambda 0 does not depend on the constraint term).
+- `tsmask` (E3, M8): pretraining masks whole timesteps (30% of timesteps, all observed variables at that hour), ERM and PCL
+  lambda 0.5. Pre-registered as a test of the reviewer's hypothesis, not a rescue attempt.
+- `vars9` (F4, C1): the 9 core variables only (first 9 columns of the cached 17-variable arrays; equal to the 9-variable
+  pipeline because normalization is a fixed per-variable map and forward fill and masks are per variable), ERM and PCL 0.5.
+- `orig_hp` (F5, C1): mask rate 0.5 and warmup fraction 0.3 (original values), 17 variables, ERM and PCL 0.5.
+
+Not run: F1 (external labels: the ICD-derived labels no longer exist), F2 (all-site pretraining needs MIMIC-IV / eICU on the
+GPU machine), Experiment A, Group DRO (one source group), E4/E5.
+
+Readout (rule from the work order, unchanged): for each variant and site, margin_variant = AUROC(PCL variant) - AUROC(ERM
+variant), margin_main = the same for the main pipeline on the same seeds, change = margin_variant - margin_main. A factor is
+"explanatory" for the PCL-ERM margin at a site if |mean change| exceeds the seed SD of margin_main and the 95% two-level
+bootstrap interval of the change excludes zero. Otherwise the claim is "no evidence that this factor changes the margin".
+Trigger B is evaluated on margin_variant (interval above zero). With five seeds, small effects will not be resolved; a null
+here is "not detectable with five seeds", not "no effect". Seeds are never dropped; if time stops a variant early, it is
+reported with the seeds it has and marked incomplete. Order: nosev, tsmask, vars9, orig_hp. Scripts: `run_variants.py`,
+`score_variants.py`, `analyze_variants.py`.
