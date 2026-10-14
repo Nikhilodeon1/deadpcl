@@ -39,8 +39,7 @@ Neural arms were trained on one GPU (V100); MIMIC-IV and eICU were scored on the
 8. **PaO2 means different things at source and targets:** reconstructed from saturation (approximate inverse) at the two
    PhysioNet sites, measured at MIMIC-IV and eICU (D8).
 9. **Not run, so these reviewer requests are unanswered with new evidence:** reproduction of the original pipeline (A);
-   label and all-site-pretraining attribution (B0/B2; the one-factor variants are in Section 1b); constraint activity
-   and redundancy with the masked loss (E1/E2: M7, M9); L1 vs squared loss (M10); constraint randomization after correction (C8);
+   label and all-site-pretraining attribution (B0/B2; the one-factor variants are in Section 1b); redundancy of the constraint with the masked loss (E2: M7); L1 vs squared loss (M10); constraint randomization after correction (C8);
    near-zero-residual / circularity proxy (F2: C4b, C7); Group DRO; seed-variance decomposition (Q3);
    reconstruction-error and constraint-violation selectors (C6).
 10. **Residual label-definition shift** between PhysioNet (event hour inside the first 48 h) and MIMIC-IV / eICU (Sepsis-3 "ever in
@@ -117,9 +116,9 @@ Verdict key: supported / refuted / mixed / not testable / not run. "May claim" =
 | M3 concurrent submission | not testable | - | Writing decision; nothing in this pack relies on target data except the oracle row, which is labeled non-deployable. |
 | M4 constraint novelty | not testable | - | - |
 | M5 other settings | not testable | - | One architecture, one task, three external sites (limitation). |
-| M7 needs >= 2 masked variables | refuted for the implementation | `audit/AUDIT.md` G4 (`pcl_loss.py:61-79`) | The penalty applies when at least one constraint variable is masked, using model predictions for all variables; redundancy with the masked loss was not measured (E1/E2 not run). |
+| M7 needs >= 2 masked variables | refuted for the implementation; concern stands | `audit/AUDIT.md` G4 (`pcl_loss.py:61-79`); `audit/outputs/e1_constraint_activity.json` | The penalty applies when at least one constraint variable is masked, using model predictions for all variables. Among active positions exactly one variable is masked at 67% (MAP, HH) and 82% (Severinghaus), identical in all four cohorts. Redundancy with the masked loss was not measured (E2 not run). |
 | M8 timestep masking | refuted (hypothesis not supported) | Section 1b | Whole-timestep masking (30% of timesteps) gives PCL minus ERM of -0.054 / -0.034 / -0.039 (Site B / MIMIC-IV / eICU, five seeds); the eICU interval [-0.072, -0.011] is below zero. PCL does not benefit. |
-| M9 how often constraints trigger | mixed | availability table; G4 | Constraint inputs are jointly present in 1.8-17.0% (HH) and 5.1-23.7% (Severinghaus) of MIMIC-IV hours (raw vs after fill), analogous numbers for the other cohorts; the per-masked-position activity (E1) was not run. |
+| M9 how often constraints trigger | supported | `audit/outputs/e1_constraint_activity.json`; availability table | Share of stay-hours where a penalty is active in a masking draw (MAP / HH / Severinghaus): Site A 50.6 / 15.9 / 11.6%; Site B 58.3 / 0.34 / 3.9%; MIMIC-IV 59.2 / 10.9 / 11.9%; eICU 60.1 / 4.8 / 6.7% (forward-filled inputs; before filling the HH inputs are jointly present in 1.8% of MIMIC-IV and 0.55% of eICU hours). |
 | M10 L1 vs squared | not testable | `audit/AUDIT.md` G4 | No rationale is recorded in the code or surviving history; L1 for MAP, squared for HH and Severinghaus. |
 | M11 final lambda | mixed | `tables/lambda_sweep_seeds42_46.csv`; D6 | "PCL" rows use lambda 0.5 (documented default; provenance unclear). Per-seed source-validation selection picks lambda 0, 0.1, 0, 0, 5 for seeds 42-46. The original paper's per-seed lambda is unresolved. |
 | M12 SOFA spelled out | supported (can be written) | `audit/AUDIT.md` G2; `src/data/sofa_sepsis.py` | Labels use single-point SOFA at the suspicion time (mode `single`), "ever in the ICU stay"; suspicion = antibiotic-culture pairing (MIMIC-IV) or culture or infection diagnosis (eICU). |

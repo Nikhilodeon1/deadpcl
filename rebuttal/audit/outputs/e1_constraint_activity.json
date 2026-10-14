@@ -1,0 +1,146 @@
+{
+  "Site A": {
+    "stays": 5000,
+    "stay_hours": 240000,
+    "MAP": {
+      "computable_share_of_stay_hours": 0.7697083333333333,
+      "active_share_of_stay_hours": 0.5058541666666667,
+      "active_share_of_computable": 0.6572024035078222,
+      "masked_count_among_active": {
+        "1": 81532,
+        "2": 34939,
+        "3": 4934
+      },
+      "exactly_one_masked_share_of_active": 0.6715703636588279
+    },
+    "HH": {
+      "computable_share_of_stay_hours": 0.24216666666666667,
+      "active_share_of_stay_hours": 0.15858333333333333,
+      "active_share_of_computable": 0.6548520302821748,
+      "masked_count_among_active": {
+        "1": 25536,
+        "2": 10997,
+        "3": 1527
+      },
+      "exactly_one_masked_share_of_active": 0.670940620073568
+    },
+    "Severinghaus": {
+      "computable_share_of_stay_hours": 0.22892083333333332,
+      "active_share_of_stay_hours": 0.116,
+      "active_share_of_computable": 0.5067253963342495,
+      "masked_count_among_active": {
+        "1": 22890,
+        "2": 4950
+      },
+      "exactly_one_masked_share_of_active": 0.822198275862069
+    }
+  },
+  "Site B": {
+    "stays": 5000,
+    "stay_hours": 240000,
+    "MAP": {
+      "computable_share_of_stay_hours": 0.8862208333333333,
+      "active_share_of_stay_hours": 0.5825041666666667,
+      "active_share_of_computable": 0.6572900847700677,
+      "masked_count_among_active": {
+        "1": 93744,
+        "2": 40317,
+        "3": 5740
+      },
+      "exactly_one_masked_share_of_active": 0.6705531433966853
+    },
+    "HH": {
+      "computable_share_of_stay_hours": 0.005225,
+      "active_share_of_stay_hours": 0.003375,
+      "active_share_of_computable": 0.645933014354067,
+      "masked_count_among_active": {
+        "1": 533,
+        "2": 246,
+        "3": 31
+      },
+      "exactly_one_masked_share_of_active": 0.6580246913580247
+    },
+    "Severinghaus": {
+      "computable_share_of_stay_hours": 0.07549583333333333,
+      "active_share_of_stay_hours": 0.03866666666666667,
+      "active_share_of_computable": 0.5121695457806722,
+      "masked_count_among_active": {
+        "1": 7643,
+        "2": 1637
+      },
+      "exactly_one_masked_share_of_active": 0.8235991379310345
+    }
+  },
+  "MIMIC-IV": {
+    "stays": 5000,
+    "stay_hours": 240000,
+    "MAP": {
+      "computable_share_of_stay_hours": 0.9011583333333333,
+      "active_share_of_stay_hours": 0.5914958333333333,
+      "active_share_of_computable": 0.6563728164676944,
+      "masked_count_among_active": {
+        "1": 95432,
+        "2": 40753,
+        "3": 5774
+      },
+      "exactly_one_masked_share_of_active": 0.6722504385068928
+    },
+    "HH": {
+      "computable_share_of_stay_hours": 0.1656625,
+      "active_share_of_stay_hours": 0.1089,
+      "active_share_of_computable": 0.6573605976005433,
+      "masked_count_among_active": {
+        "1": 17430,
+        "2": 7590,
+        "3": 1116
+      },
+      "exactly_one_masked_share_of_active": 0.6668962350780533
+    },
+    "Severinghaus": {
+      "computable_share_of_stay_hours": 0.23269166666666666,
+      "active_share_of_stay_hours": 0.11872083333333333,
+      "active_share_of_computable": 0.5102066396877126,
+      "masked_count_among_active": {
+        "1": 23459,
+        "2": 5034
+      },
+      "exactly_one_masked_share_of_active": 0.823325027199663
+    }
+  },
+  "eICU-CRD": {
+    "stays": 5000,
+    "stay_hours": 240000,
+    "MAP": {
+      "computable_share_of_stay_hours": 0.914225,
+      "active_share_of_stay_hours": 0.6009458333333333,
+      "active_share_of_computable": 0.6573281559061864,
+      "masked_count_among_active": {
+        "1": 96988,
+        "2": 41353,
+        "3": 5886
+      },
+      "exactly_one_masked_share_of_active": 0.6724677071560804
+    },
+    "HH": {
+      "computable_share_of_stay_hours": 0.072175,
+      "active_share_of_stay_hours": 0.04797083333333333,
+      "active_share_of_computable": 0.6646461147673479,
+      "masked_count_among_active": {
+        "1": 7721,
+        "2": 3294,
+        "3": 498
+      },
+      "exactly_one_masked_share_of_active": 0.6706331972552766
+    },
+    "Severinghaus": {
+      "computable_share_of_stay_hours": 0.1312125,
+      "active_share_of_stay_hours": 0.0666625,
+      "active_share_of_computable": 0.5080499190244832,
+      "masked_count_among_active": {
+        "1": 13216,
+        "2": 2783
+      },
+      "exactly_one_masked_share_of_active": 0.8260516282267641
+    }
+  }
+}
