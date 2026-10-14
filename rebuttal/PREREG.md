@@ -344,3 +344,12 @@ Trigger B is evaluated on margin_variant (interval above zero). With five seeds,
 here is "not detectable with five seeds", not "no effect". Seeds are never dropped; if time stops a variant early, it is
 reported with the seeds it has and marked incomplete. Order: nosev, tsmask, vars9, orig_hp. Scripts: `run_variants.py`,
 `score_variants.py`, `analyze_variants.py`.
+
+### A7 - constraint activity (E1), CPU only (written 2026-10-14, before it is computed)
+
+Quantity: for each cohort, how often each constraint term is active during masked pretraining and how many of its variables are
+masked at active positions. No model, no label, no target AUROC involved; 5,000 stays per cohort, one masking draw per entry exactly as
+in `apply_random_mask` (probability 0.3 per post-forward-fill observed entry), activity rule as in the loss. Expected analytically
+from independent masking: exactly one masked variable among active positions about 0.67 for the three-variable constraints and
+0.82 for the two-variable one. It answers reviewer questions M7 and M9 as a count, not as a claim about redundancy with the masked
+loss (E2, gradient comparison, is not run). Script: `scripts/constraint_activity.py`.
