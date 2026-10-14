@@ -353,3 +353,26 @@ in `apply_random_mask` (probability 0.3 per post-forward-fill observed entry), a
 from independent masking: exactly one masked variable among active positions about 0.67 for the three-variable constraints and
 0.82 for the two-variable one. It answers reviewer questions M7 and M9 as a count, not as a claim about redundancy with the masked
 loss (E2, gradient comparison, is not run). Script: `scripts/constraint_activity.py`.
+
+### A8 - second batch: remaining weaknesses (written 2026-10-14, before any of these runs)
+
+Motivation: after the first batch the weakest points are (i) the lambda-selected and oracle rows and the attribution variants have
+only five seeds, (ii) the label definition differs across cohorts and was not tested, (iii) seed variance was not decomposed.
+All runs are PhysioNet-side training on the corrected pipeline with the same schedule (A3); MIMIC-IV and eICU are scored locally.
+Fixed order, resumable, time-capped; groups not reached are reported as not run.
+
+1. `evlab` (label definition): ERM and PCL lambda 0.5, seeds 42-46. The PhysioNet label becomes "any positive SepsisLabel in the whole
+   record" (inputs unchanged, first 48 hours), the same "ever in the stay" meaning as at MIMIC-IV and eICU; stays are the ones the
+   standard loader keeps. Training and Site B scoring use this label; the external labels are unchanged. Readout: paired PCL - ERM per
+   site (two-level bootstrap), its own ERM. Trigger B is evaluated. Not a rescue attempt; note that for stays whose onset is after hour
+   48 the input contains no label hours.
+2. `sweep`: lambda in {0.1, 1, 2, 5}, seeds 47-51, completing the lambda grid to ten seeds. The pre-registered selection rules (A2 item 4)
+   are recomputed on ten seeds; nothing else changes.
+3. `sg` (seed variance): ERM with model-initialisation seed i and data-split seed j in {42, 43, 44}, i != j (six new arms; the diagonal
+   is the existing ERM arms). Readout: variance components of target AUROC by a two-way layout without replication
+   (`analyze_batch2.py`); estimates from a 3 x 3 layout are rough and are reported as such.
+4. `var`: the four attribution variants of A6 on seeds 47-51 (nosev: PCL only), so that each has ten seeds. The A6 rule is applied on
+   all ten seeds, replacing the five-seed readout; the five-seed numbers stay in the pack, labeled as the first batch.
+Not run, with reasons: all-site pretraining (the credentialed cohorts may not go to the GPU machine; CPU training on 230,000 stays is
+about half a day per arm), reproduction of the original pipeline (drivers and ICD labels unavailable), gradient-level redundancy (E2).
+Scripts: `run_batch2.py`, `rb_labels.py`, `analyze_batch2.py`, `analyze_variants.py`.

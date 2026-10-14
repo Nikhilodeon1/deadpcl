@@ -55,4 +55,8 @@ VARIANTS = {
     "tsmask":  {"loss": "main", "mask": "timestep", "mask_prob": 0.30, "warmup": 0.4, "n_vars": 17, "arms": [0.0, 0.5]},
     "vars9":   {"loss": "main", "mask": "random", "mask_prob": 0.30, "warmup": 0.4, "n_vars": 9, "arms": [0.0, 0.5]},
     "orig_hp": {"loss": "main", "mask": "random", "mask_prob": 0.50, "warmup": 0.3, "n_vars": 17, "arms": [0.0, 0.5]},
+    # PREREG A8: full-record label at the PhysioNet sites (relabeling is done by the caller, see rb_labels.py)
+    "evlab":   {"loss": "main", "mask": "random", "mask_prob": 0.30, "warmup": 0.4, "n_vars": 17, "arms": [0.0, 0.5]},
+    # PREREG A8: seed grid, ERM only; model-initialisation seed and data-split seed set separately
+    "sg":      {"loss": "main", "mask": "random", "mask_prob": 0.30, "warmup": 0.4, "n_vars": 17, "arms": [0.0]},
 }

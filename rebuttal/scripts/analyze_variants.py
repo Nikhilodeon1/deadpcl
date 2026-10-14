@@ -21,7 +21,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import analyze as an
 
-SEEDS = list(range(42, 47))
+SEEDS = list(range(42, 52))   # uses the seeds each variant has (five in the first batch, ten after PREREG A8)
 SITES = ["site_b", "mimic", "eicu"]
 VARIANT_ARMS = {  # variant -> (tag of its ERM, tag of its PCL); "main" tags have no prefix
     "nosev": (("", 0.0), ("nosev__", 0.5)),
