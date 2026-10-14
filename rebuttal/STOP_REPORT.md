@@ -163,3 +163,16 @@ Source: `pack/tables/final/paired_contrasts.csv`, `lambda_sweep.csv`, 40 PhysioN
   is not supported by the 10-seed paired data in any row.
 - Not done: the timestep-masking variant and the no-Severinghaus variant (the two variants the work order names as
   especially likely to fire B) were not run; budget and time went to the main comparison and the sweep.
+
+## Update 2026-10-14: attribution variants (PREREG A6; five seeds, all three external sites)
+
+Source: `pack/tables/attribution.csv`, `attribution_formatted.csv`, Fig. 3.
+
+- Trigger B: NOT fired in any variant. The largest PCL-minus-ERM margins are +0.022 (no Severinghaus term, eICU,
+  [-0.015, +0.051]) and +0.014 (MIMIC-IV, [-0.032, +0.044]); no interval lies above zero. The variants the work order named as most
+  likely to fire it (timestep masking, no Severinghaus) did not.
+- Variants that moved the margin did so in the direction of PCL doing worse: timestep masking at eICU (-0.039, [-0.072, -0.011];
+  change vs main -0.061 [-0.116, -0.002]) and the 9-variable pipeline at MIMIC-IV (-0.030, [-0.044, -0.017]; change -0.046
+  [-0.079, -0.012]). Two of twelve cells meet the "explanatory" rule; five seeds and twelve comparisons make that fragile.
+- Trigger F (sixth confound): no new evidence beyond the Trigger F section above.
+- Not run (so no statement): label definition, all-site pretraining, Experiment A.

@@ -77,9 +77,30 @@ def fig5():
     fig.savefig(os.path.join(OUT, "fig5_horizon_diagnostic.pdf"))
 
 
+def fig3():
+    rows = list(csv.DictReader(open(os.path.join(ROOT, "pack", "tables", "attribution.csv"))))
+    variants = ["nosev", "tsmask", "vars9", "orig_hp"]
+    labels = ["no Sev.\nterm", "timestep\nmask", "9 vars", "mask .5,\nwarmup .3"]
+    fig, axes = plt.subplots(1, 3, figsize=(6.5, 2.4), sharey=True)
+    for ax, (site, name) in zip(axes, SITES):
+        for i, v in enumerate(variants):
+            r = next(x for x in rows if x["variant"] == v and x["site"] == site)
+            m, lo, hi = (float(r[k]) for k in ("margin_variant", "margin_variant_lo", "margin_variant_hi"))
+            ax.errorbar(i, m, yerr=[[m - lo], [hi - m]], fmt="o", ms=3, capsize=2, color="k", lw=1)
+            ax.hlines(float(r["margin_main"]), i - 0.3, i + 0.3, color="0.5", ls="--", lw=1)
+        ax.axhline(0, color="0.8", lw=0.6)
+        ax.set_xticks(range(4))
+        ax.set_xticklabels(labels, fontsize=6)
+        ax.set_title(name)
+    axes[0].set_ylabel("PCL $-$ ERM AUROC (5 seeds)")
+    fig.tight_layout()
+    fig.savefig(os.path.join(OUT, "fig3_attribution.pdf"))
+
+
 if __name__ == "__main__":
     store = an.Store(os.path.join(ROOT, "outputs", "predictions"))
     fig1(store)
     fig2(store)
     fig5()
+    fig3()
     print("figures written to", OUT)

@@ -1,0 +1,44 @@
+{
+  "tag": "vars9__lam0_s42",
+  "variant": "vars9",
+  "lambda": 0.0,
+  "seed": 42,
+  "config": {
+    "loss": "main",
+    "mask": "random",
+    "mask_prob": 0.3,
+    "warmup": 0.4,
+    "n_vars": 9,
+    "arms": [
+      0.0,
+      0.5
+    ]
+  },
+  "pretrain_epochs": 30,
+  "finetune_epochs": 30,
+  "device": "cuda",
+  "stages_s": {
+    "pretrain_s": 294.58583092689514,
+    "finetune_s": 196.64709663391113,
+    "eval_s": 7.2414422035217285
+  },
+  "metrics": {
+    "source_val": {
+      "n": 2077,
+      "n_pos": 68,
+      "auroc": 0.8497899159663865,
+      "auprc": 0.33868239269981,
+      "brier": 0.1626059800746164,
+      "ece10": 0.2695481943636487
+    },
+    "site_b": {
+      "n": 14779,
+      "n_pos": 304,
+      "auroc": 0.7142669984546859,
+      "auprc": 0.16279050168950462,
+      "brier": 0.08256508680650139,
+      "ece10": 0.18405485601674898
+    }
+  },
+  "arm_seconds": 500.7142605781555
+}

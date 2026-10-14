@@ -146,7 +146,24 @@ def budget_table():
     write("budget", rows)
 
 
+def attribution_table():
+    src = os.path.join(OUT, "attribution.csv")
+    if not os.path.exists(src):
+        return
+    rows = []
+    for r in csv.DictReader(open(src)):
+        f = lambda k: float(r[k])
+        rows.append({"variant": r["variant"], "site": SITE_NAMES.get(r["site"], r["site"]), "n_seeds": r["n_seeds"],
+                     "margin_variant": f'{f("margin_variant"):+.3f} [{f("margin_variant_lo"):+.3f}, {f("margin_variant_hi"):+.3f}]',
+                     "margin_main_same_seeds": f'{f("margin_main"):+.3f}',
+                     "change": f'{f("change"):+.3f} [{f("change_lo"):+.3f}, {f("change_hi"):+.3f}]',
+                     "seed_SD_of_main_margin": f'{f("margin_main_seed_sd"):.3f}',
+                     "explanatory": r["explanatory"], "trigger_B": r["trigger_B_candidate"]})
+    write("attribution_formatted", rows)
+
+
 if __name__ == "__main__":
+    attribution_table()
     per_seed()
     metrics_table()
     sweep_table()

@@ -69,8 +69,9 @@ reported gain does not survive.
 **Lesson 4 (imputed PaO2).** If the constraint were exactly valid, an imputed channel would match the measured one, as you say.
 In our code the equality does not hold exactly: PaO2 is missing from the raw PhysioNet files and is reconstructed from saturation
 with an approximate inverse that drops one term of the loss's own forward function (7.3% of Site A and 1.9% of Site B hours),
-while at MIMIC-IV and eICU PaO2 is measured. So the constraint carries different information at source and target. We have not
-shown it is the cause of the failure. **[PENDING-ATTR: effect of removing the Severinghaus term.]**
+while at MIMIC-IV and eICU PaO2 is measured. So the constraint carries different information at source and target. We then removed the Severinghaus term from the constraint loss and re-ran ERM and PCL (five seeds): the PCL minus ERM margin was
++0.007, +0.014, +0.022 at Site B, MIMIC-IV and eICU, against -0.006, +0.017, +0.022 for the full loss on the same seeds, with
+intervals about +-0.06 wide. We cannot detect an effect of that term with five seeds, so we do not claim it is the cause.
 
 **Concurrent submission.** You are right that praising a method that tunes on target data conflicts with our lesson 3. We will
 rewrite that passage: methods using unlabeled target data are transductive, not zero-shot, and we say so. **[OWNER: wording.]**
@@ -87,7 +88,9 @@ variables are present after forward fill and at least one is masked, computed on
 variable is masked applies. Whether it makes the penalty redundant with the masked loss is empirical and we have not measured it;
 we will say so rather than assert either answer.
 
-**Timestep masking.** **[PENDING-ATTR: ERM and PCL with whole-timestep masking, five seeds, paired margin.]**
+**Timestep masking.** We tested it (30% of timesteps masked entirely, ERM and PCL, five seeds). PCL minus ERM was -0.054, -0.034,
+-0.039 at Site B, MIMIC-IV and eICU (the eICU interval [-0.072, -0.011] is below zero). The hypothesis that whole-timestep masking
+lets the constraint help is not supported.
 
 **How often the constraint triggers.** Share of stay-hours with all constraint inputs present (raw / after forward fill):
 Henderson-Hasselbalch 1.8% / 17.0% (MIMIC-IV), 0.55% / 7.2% (eICU), 3.0% / 27.7% (Site A), 0.19% / 0.56% (Site B);
@@ -98,7 +101,9 @@ will describe it as an unexamined design choice. **Lambda.** The PCL rows use 0.
 in the shared comment. **SOFA.** Sepsis-3 as suspected infection (antibiotic-culture pairing at MIMIC-IV; a culture or an
 infection diagnosis at eICU) with single-point SOFA >= 2 at the suspicion time, "ever in the ICU stay", broadcast over 48 hours;
 PhysioNet uses the challenge's hourly label inside the first 48 hours, so a definitional difference remains and we state it.
-**Why confound 1 favors PCL; how to fix confound 4.** **[PENDING-ATTR.]**
+**Why confound 1 favors PCL; how to fix confound 4.** We could not test the label factor (the ICD-derived labels no longer exist),
+so we cannot say why it would favor PCL and will not claim it. For confound 4, dropping the Severinghaus term had no detectable
+effect on the margin (above), so the revision states that it was tried.
 
 We hope the ten-seed paired results, which change the paper's central claim, address the concern that the negative result is
 not established.
@@ -123,9 +128,12 @@ MIMIC-IV, eICU-CRD) and they appear in every table; we will make that explicit. 
 Thank you for a careful review; it improved the paper. Numbering follows your weaknesses and questions.
 
 **W1 / Q1, Q2 (attribution; confound 4, 5).** You are right that the original claim "five confounds explain the gain" was not
-shown. **[PENDING-ATTR: one-factor-at-a-time table for Severinghaus term off, 9 vs 17 variables, original mask rate and warmup,
-timestep masking; paired margin change per site under the rule "explanatory if the change exceeds the seed SD of the margin and
-its interval excludes zero".]** Re-scoring against the ICD labels is not possible (those labels no longer exist); all-site
+shown. We now flip one factor at a time on the corrected pipeline (five seeds; PCL minus ERM margin per site, ERM retrained under
+each variant): Severinghaus term off, 9 instead of 17 variables, original mask rate (0.5) and warmup (0.3), and whole-timestep
+masking. None restores a PCL advantage (largest margin +0.022, [-0.015, +0.051]). Under the rule "explanatory if the change in
+margin exceeds the seed SD of the margin and its interval excludes zero", two of twelve cells qualify, both making PCL worse
+(9 variables at MIMIC-IV: change -0.046 [-0.079, -0.012]; timestep masking at eICU: -0.061 [-0.116, -0.002]); with twelve
+comparisons we do not read much into them. So the variable expansion is not what removed the gain. Re-scoring against the ICD labels is not possible (those labels no longer exist); all-site
 pretraining was not rerun (the cohorts are not on the training machine). Confound 5 concerns the violation score across sites and
 cannot inflate prediction AUROC; we will say so. At Site B, where ICD labels were never used, we explain the margin change using
 the other factors only.
@@ -167,7 +175,8 @@ denominator is near zero).
 
 ## Rebuttal to R4 (7MQE)
 
-Thank you. **Per-fix attribution; why a pipeline error would affect PCL more.** **[PENDING-ATTR.]** In the fixed pipeline there is
+Thank you. **Per-fix attribution; why a pipeline error would affect PCL more.** One-factor-at-a-time results are in the response to R3 (W1): none of
+the four factors tested restores a PCL advantage; the label definition and all-site pretraining could not be tested. In the fixed pipeline there is
 no detectable PCL-ERM difference at ten seeds (intervals about -6 to +3, -2 to +2, -3 to +3 points at the three sites), so an
 asymmetric effect can neither be shown nor excluded beyond that width. **Seed variance.** SD 3.5-5.2 points (range 12-17) for
 neural arms, about 1 point for XGBoost; paired-margin SD 3.6-5.6. We did not decompose initialization from the data split.

@@ -2,7 +2,7 @@
 
 Aggregates only; no patient-level rows. Every number points to a file under `rebuttal/` or is marked
 "carried, not re-verified". Settings, decision rules and the order of work were fixed in `PREREG.md`
-(A1-A5) before any run; nulls and failures are reported with the same prominence as the rest.
+(A1-A6) before any run; nulls and failures are reported with the same prominence as the rest.
 
 Seeds: 42-51 (ten; 42-44 are the original three). Target AUROC is the primary metric. "Interval" = two-level
 percentile bootstrap (seeds, then stays; 1000 draws) of the paired difference; the t-interval over seeds is
@@ -39,7 +39,7 @@ Neural arms were trained on one GPU (V100); MIMIC-IV and eICU were scored on the
 8. **PaO2 means different things at source and targets:** reconstructed from saturation (approximate inverse) at the two
    PhysioNet sites, measured at MIMIC-IV and eICU (D8).
 9. **Not run, so these reviewer requests are unanswered with new evidence:** reproduction of the original pipeline (A);
-   the attribution ladder (B0/B1/B2; C1, Q1, M13); no-Severinghaus variant (M14); timestep masking (M8); constraint activity
+   label and all-site-pretraining attribution (B0/B2; the one-factor variants are in Section 1b); constraint activity
    and redundancy with the masked loss (E1/E2: M7, M9); L1 vs squared loss (M10); constraint randomization after correction (C8);
    near-zero-residual / circularity proxy (F2: C4b, C7); Group DRO; seed-variance decomposition (Q3);
    reconstruction-error and constraint-violation selectors (C6).
@@ -73,6 +73,37 @@ Calibration and AUPRC (`tables/metrics_auroc_auprc_brier_ece.csv`; ECE with 10 e
 at Site B ECE is 0.093 (ERM), 0.174 (PCL), 0.007 (XGBoost); MIMIC-IV 0.146, 0.130, 0.282; eICU 0.113, 0.182, 0.068.
 PCL is worse calibrated than ERM at Site B and eICU.
 
+
+## 1b. Attribution variants (PREREG A6; five seeds, 42-46; `tables/attribution_formatted.csv`, Fig. 3)
+
+Each variant flips one factor of the corrected PCL pipeline; "margin" = PCL minus ERM AUROC on the same seeds, ERM trained
+under the same variant (for `nosev` the main-pipeline ERM, since lambda 0 does not use the constraint term). Interval = two-level
+bootstrap. "Main" margin on these five seeds: -0.006 (Site B), +0.017 (MIMIC-IV), +0.022 (eICU) (the ten-seed margins in Section 1
+are about zero; these five seeds happen to favor PCL slightly at the external sites).
+
+| Variant | Site B margin [95%] | MIMIC-IV margin [95%] | eICU margin [95%] |
+|---|---|---|---|
+| no Severinghaus term | +0.007 [-0.050, +0.048] | +0.014 [-0.032, +0.044] | +0.022 [-0.015, +0.051] |
+| timestep masking | -0.054 [-0.109, +0.003] | -0.034 [-0.078, +0.001] | **-0.039 [-0.072, -0.011]** |
+| 9 variables | -0.025 [-0.052, +0.002] | **-0.030 [-0.044, -0.017]** | -0.021 [-0.046, +0.004] |
+| mask 0.5, warmup 0.3 | +0.000 [-0.055, +0.056] | +0.006 [-0.030, +0.051] | +0.000 [-0.042, +0.039] |
+
+Change in margin relative to the main pipeline on the same seeds (rule from the work order: "explanatory" if |mean change|
+exceeds the seed SD of the main margin, 0.031-0.040, and the interval excludes zero): no Severinghaus +0.013 / -0.003 / +0.000
+(none); timestep masking -0.048 / -0.051 [-0.111, +0.001] / -0.061 [-0.116, -0.002]; 9 variables -0.019 / -0.046 [-0.079, -0.012] /
+-0.043 [-0.085, +0.002]; mask and warmup +0.006 / -0.011 / -0.022 (none). Two of twelve cells meet the rule (timestep masking at
+eICU, 9 variables at MIMIC-IV), both in the direction of PCL doing worse; with twelve comparisons and five seeds, one such cell
+could arise by chance, so we do not interpret them as established.
+
+What the writer may claim: (1) none of the four factors, flipped back to its original value, restores a PCL advantage over ERM;
+no variant fires trigger B. (2) Removing the Severinghaus term changes the margin by at most 1.3 points with intervals about
++-6 points wide: the data cannot say whether the term matters ("not detectable with five seeds", not "no effect"). (3) The
+reviewer's timestep-masking hypothesis is not supported: whole-timestep masking makes PCL no better and, at eICU, worse than ERM
+(five seeds, so "worse" is not an eligible claim under our rule). (4) Moving to the original 9 variables makes PCL relatively
+worse, not better, so the 9-to-17 variable change does not explain the disappearance of the original gain. (5) What this does not
+test: the label definition, all-site pretraining and target-selected lambda, the three factors most likely behind the original
+gain; they remain untested except for the oracle-lambda row (Section 0 item 3).
+
 ## 2. By reviewer concern
 
 Verdict key: supported / refuted / mixed / not testable / not run. "May claim" = what the paper may say.
@@ -82,18 +113,18 @@ Verdict key: supported / refuted / mixed / not testable / not run. "May claim" =
 | ID | Verdict | Evidence | May claim |
 |---|---|---|---|
 | M1 four of five lessons known | not testable | - | Do not claim the lessons are new; claim the quantified audit of one pipeline (D1-D19) and the 10-seed paired result. |
-| M2 confound-4 argument | mixed | `audit/AUDIT.md` G3; D8; `tables/cohorts_and_constraint_availability.csv` | PaO2 is an approximate inverse of saturation at the PhysioNet sites (term dropped) and measured elsewhere, so "imputed equals measured" does not hold exactly; the Severinghaus term was not ablated (F6 not run). |
+| M2 confound-4 argument | mixed | `audit/AUDIT.md` G3; D8; Section 1b | PaO2 is an approximate inverse of saturation at the PhysioNet sites (term dropped) and measured elsewhere, so "imputed equals measured" does not hold exactly. Removing the Severinghaus term does not detectably change the PCL-ERM margin (+0.013 / -0.003 / +0.000, five seeds, intervals about +-0.06): not shown to be the cause of the failure. |
 | M3 concurrent submission | not testable | - | Writing decision; nothing in this pack relies on target data except the oracle row, which is labeled non-deployable. |
 | M4 constraint novelty | not testable | - | - |
 | M5 other settings | not testable | - | One architecture, one task, three external sites (limitation). |
 | M7 needs >= 2 masked variables | refuted for the implementation | `audit/AUDIT.md` G4 (`pcl_loss.py:61-79`) | The penalty applies when at least one constraint variable is masked, using model predictions for all variables; redundancy with the masked loss was not measured (E1/E2 not run). |
-| M8 timestep masking | not run | - | State as untested. |
+| M8 timestep masking | refuted (hypothesis not supported) | Section 1b | Whole-timestep masking (30% of timesteps) gives PCL minus ERM of -0.054 / -0.034 / -0.039 (Site B / MIMIC-IV / eICU, five seeds); the eICU interval [-0.072, -0.011] is below zero. PCL does not benefit. |
 | M9 how often constraints trigger | mixed | availability table; G4 | Constraint inputs are jointly present in 1.8-17.0% (HH) and 5.1-23.7% (Severinghaus) of MIMIC-IV hours (raw vs after fill), analogous numbers for the other cohorts; the per-masked-position activity (E1) was not run. |
 | M10 L1 vs squared | not testable | `audit/AUDIT.md` G4 | No rationale is recorded in the code or surviving history; L1 for MAP, squared for HH and Severinghaus. |
 | M11 final lambda | mixed | `tables/lambda_sweep_seeds42_46.csv`; D6 | "PCL" rows use lambda 0.5 (documented default; provenance unclear). Per-seed source-validation selection picks lambda 0, 0.1, 0, 0, 5 for seeds 42-46. The original paper's per-seed lambda is unresolved. |
 | M12 SOFA spelled out | supported (can be written) | `audit/AUDIT.md` G2; `src/data/sofa_sepsis.py` | Labels use single-point SOFA at the suspicion time (mode `single`), "ever in the ICU stay"; suspicion = antibiotic-culture pairing (MIMIC-IV) or culture or infection diagnosis (eICU). |
-| M13 why confound 1 favors PCL | not run | - | Attribution experiments not run. |
-| M14 fix for confound 4 | not run | - | No-Severinghaus variant not run. |
+| M13 why confound 1 favors PCL | not testable | Section 1b | The label factor could not be tested (ICD labels no longer exist); the four factors that were tested do not restore a PCL advantage. |
+| M14 fix for confound 4 | mixed | Section 1b | The no-Severinghaus variant was run (five seeds): margin +0.007 / +0.014 / +0.022, change vs main +0.013 / -0.003 / +0.000, intervals contain zero. The paper may state that dropping the term was tested and had no detectable effect. |
 
 ### JHNu (R2)
 
@@ -109,7 +140,7 @@ Verdict key: supported / refuted / mixed / not testable / not run. "May claim" =
 
 | ID | Verdict | Evidence | May claim |
 |---|---|---|---|
-| C1 attribution | not run | - | The ladder (B0/B1/B2) was not run; the only new evidence on "other things changed" is the 10-seed paired result under one fixed pipeline. |
+| C1 attribution | mixed | Section 1b | One-factor-at-a-time variants were run for the Severinghaus term, 9 vs 17 variables, mask rate and warmup, and timestep masking (five seeds): none restores a PCL gain. Not run: label definition, all-site pretraining, the full ladder (B0/B2). |
 | C2 statistics | supported | Section 1; `tables/per_seed_auroc.csv`, `paired_contrasts_formatted.csv` | Per-seed values, SD (not range), paired intervals are given; "worse" is not supported, "no evidence of benefit" is. The 3.3-point HH-ablation cost was not re-tested. |
 | C3 AUROC for every lambda with ERM | supported | `tables/lambda_sweep_seeds42_46.csv`, Fig. 2 | On seeds 42-46 no lambda separates cleanly from ERM at Site B or MIMIC-IV; at eICU larger lambda (2, 5) is higher (0.605, 0.609 vs 0.570). Lambda 0 and 0.5 have ten seeds (Section 1); other lambdas five. |
 | C4a label provenance, prevalence | supported | G1, G2, D16 | Site A/B labels are the challenge's hourly labels cut to the first 48 rows. Prevalence 3.28% / 2.06% reproduced; 8.8% / 5.7% of challenge files are ever septic, 5.6% / 3.7% have a positive hour in the first 48 rows; 24 h and hemodynamic filters remove the rest. |
@@ -128,7 +159,7 @@ Verdict key: supported / refuted / mixed / not testable / not run. "May claim" =
 
 | ID | Verdict | Evidence | May claim |
 |---|---|---|---|
-| Q1 per-fix attribution | not run | - | - |
+| Q1 per-fix attribution | mixed | Section 1b | See C1. |
 | Q2 why pipeline errors favor PCL | not testable here | Section 1 | Under one fixed pipeline there is no detectable PCL-ERM difference at 10 seeds, so an asymmetric effect can neither be shown nor excluded beyond the width of the intervals (about -6 to +3 points at Site B, -2 to +2 at MIMIC-IV, -3 to +3 at eICU). |
 | Q3 seed variance | mixed | Section 1 | SD 3.5-5.2 points (range 12-17 points) for neural arms, about 1 point for XGBoost; the split between initialisation and Site-A split was not decomposed. |
 | Q4 label definition and horizon | supported | D1, G1, Fig. 5 | See Section 0 item 1. |
@@ -142,7 +173,7 @@ Verdict key: supported / refuted / mixed / not testable / not run. "May claim" =
 | ID | Verdict | Evidence | May claim |
 |---|---|---|---|
 | D1 writing | not testable | - | - |
-| D2 no figures | addressed | `figures/fig1_auroc_by_arm.pdf`, `fig2_lambda_sweep.pdf`, `fig5_horizon_diagnostic.pdf` | Three plain figures exist; Figs. 3 (attribution) and 4 (constraint activity) were not produced because those experiments were not run. |
+| D2 no figures | addressed | `figures/fig1_auroc_by_arm.pdf`, `fig2_lambda_sweep.pdf`, `fig5_horizon_diagnostic.pdf` | Four plain figures exist (including `fig3_attribution.pdf`); Fig. 4 (constraint activity) was not produced because that experiment was not run. |
 | D3 "autopsy" | not testable | - | - |
 | D4 failure modes known | not testable | - | - |
 | D5 overclaims from one task | supported (limitation) | - | State the single-task, single-architecture scope. |

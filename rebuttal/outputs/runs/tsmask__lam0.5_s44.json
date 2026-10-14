@@ -1,0 +1,44 @@
+{
+  "tag": "tsmask__lam0.5_s44",
+  "variant": "tsmask",
+  "lambda": 0.5,
+  "seed": 44,
+  "config": {
+    "loss": "main",
+    "mask": "timestep",
+    "mask_prob": 0.3,
+    "warmup": 0.4,
+    "n_vars": 17,
+    "arms": [
+      0.0,
+      0.5
+    ]
+  },
+  "pretrain_epochs": 30,
+  "finetune_epochs": 30,
+  "device": "cuda",
+  "stages_s": {
+    "pretrain_s": 297.8279616832733,
+    "finetune_s": 198.90518283843994,
+    "eval_s": 7.212509870529175
+  },
+  "metrics": {
+    "source_val": {
+      "n": 2077,
+      "n_pos": 68,
+      "auroc": 0.8128861300617808,
+      "auprc": 0.20308579750456401,
+      "brier": 0.0755514451561752,
+      "ece10": 0.10713137269421845
+    },
+    "site_b": {
+      "n": 14779,
+      "n_pos": 304,
+      "auroc": 0.6261708026543042,
+      "auprc": 0.07816059260167592,
+      "brier": 0.025917554369208454,
+      "ece10": 0.027422532393859913
+    }
+  },
+  "arm_seconds": 506.1301188468933
+}
